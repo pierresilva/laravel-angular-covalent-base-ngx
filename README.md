@@ -78,16 +78,19 @@ The default build configuration is `prod`.
 
 # Back End Main tasks
 
-Task automation is based on [NPM scripts](https://docs.npmjs.com/misc/scripts).
-
 Task                                               | Description
 ---------------------------------------------------|--------------------------------------------------------------------------------------
 `php artisan crud:setup [file_path].json`          | Run setup crud generator
 `php artisan crud:setup [file_path].json --force`  | Run setup crud generator overwriting existent files
+`php artisan migrate`                              | Run migration scripts of databases
+`php artisan db:seed`                              | Run seeders to store in database
+`php artisan migrate:reset`                        | Reload the database tables
 
-
+All native Laravel commands are available.
 
 ## Development server
+
+[Laragon](https://laragon.org/download/index.html) is recommended for backend server
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change
 any of the source files.
