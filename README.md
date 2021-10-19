@@ -131,7 +131,9 @@ Development, build and quality processes are based on [angular-cli](https://gith
 - Local knowledgebase server using [Hads](https://github.com/sinedied/hads)
 - Automatic Angular documentation generation using [Compodoc](https://compodoc.app)
 
-#### Libraries
+### Libraries
+
+##### Angular
 
 - [Angular](https://angular.io)
 - [Angular Material](https://material.angular.io)
@@ -142,6 +144,11 @@ Development, build and quality processes are based on [angular-cli](https://gith
 - [ngx-translate](https://github.com/ngx-translate/core)
 - [Lodash](https://lodash.com)
 - [Moment.js](https://momentjs.com)
+
+##### Laravel
+
+- [Laravel Excel](https://laravel-excel.com/)
+- [Laravel Report Generator](https://github.com/Jimmy-JS/laravel-report-generator)
 
 #### Coding guides
 
