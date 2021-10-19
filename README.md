@@ -18,10 +18,15 @@ version 10.0.0
 # Project structure
 
 ```
+android/                     For Android application
+ios/                         For ios application
+app/                         Backend App namespace
+config/                      Backend configuration files
+database/                    Backend database scripts
 dist/                        web app production build
 docs/                        project docs and coding guides
 e2e/                         end-to-end tests
-src/                         project source code
+angular/                     project source code
 |- app/                      app components
 |  |- core/                  core module (singleton services and single-use components)
 |  |- shared/                shared module  (common components, directives and pipes)
@@ -38,11 +43,18 @@ src/                         project source code
 |- main.ts                   app entry point
 |- polyfills.ts              polyfills needed by Angular
 +- test.ts                   unit tests entry point
+packages/                    Generator package (in development)
+public/                      Application public web
 reports/                     test and coverage reports
+resources/                   Backend resources
+routes/                      Backend routes
+storage/                     Backend storage folder
+tests/                       Backend tests folder
 proxy.conf.js                backend proxy configuration
+.env.example                 laravel .env example
 ```
 
-# Main tasks
+# Front End Main tasks
 
 Task automation is based on [NPM scripts](https://docs.npmjs.com/misc/scripts).
 
@@ -63,6 +75,17 @@ When building the application, you can specify the target configuration using th
 `--configuration <name>` (do not forget to prepend `--` to pass arguments to npm scripts).
 
 The default build configuration is `prod`.
+
+# Back End Main tasks
+
+Task automation is based on [NPM scripts](https://docs.npmjs.com/misc/scripts).
+
+Task                                               | Description
+---------------------------------------------------|--------------------------------------------------------------------------------------
+`php artisan crud:setup [file_path].json`          | Run setup crud generator
+`php artisan crud:setup [file_path].json --force`  | Run setup crud generator overwriting existent files
+
+
 
 ## Development server
 
@@ -109,6 +132,7 @@ Development, build and quality processes are based on [angular-cli](https://gith
 
 - [Angular](https://angular.io)
 - [Angular Material](https://material.angular.io)
+- [Covalent](https://teradata.github.io/covalent/v3/)
 - [Angular Flex Layout](https://github.com/angular/flex-layout)
 - [Material Icons](https://material.io/icons/)
 - [RxJS](http://reactivex.io/rxjs)
