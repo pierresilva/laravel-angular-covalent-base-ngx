@@ -1,0 +1,25 @@
+.container {
+  text-align: center;
+  padding: 1rem;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.loading-shade {
+}
+
+:host {
+  ::ng-deep {
+    .td-data-table-scrollable {
+      margin-top: 55px;
+    }
+
+    .td-search-input-field {
+      .mat-form-field-infix {
+        margin-top: 10px;
+      }
+    }
+  }
+}

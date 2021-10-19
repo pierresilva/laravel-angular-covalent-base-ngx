@@ -1,0 +1,33 @@
+{
+  "name": "pierresilva/laravel-crud",
+  "description": "Extend Laravel 7's generators scaffold.",
+  "keywords": ["laravel", "generators", "scaffold" , "laravel7" , "CRUD" , "crud"],
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Pierre Silva",
+      "email": "pierremichelsilva@gmail.com"
+    }
+  ],
+  "require": {
+    "laravel/framework": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "DogEars\\CrudDScaffold\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+        "Tests\\Unit\\": "tests/unit/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "pierresilva\\LaravelCrud\\GeneratorsServiceProvider"
+      ]
+    }
+  }
+}

@@ -1,0 +1,245 @@
+<div flex
+     layout="row"
+     layout-wrap>
+
+  <div flex
+       flex-gt-md="33.3">
+    <mat-card style="background: #424242;">
+      <div class="pad">
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListAvatar>scatter_plot</mat-icon>
+            <h4 matLine
+                style="font-size: 1.6rem;">14.4 toneladas</h4>
+            <p matLine>CO2 reducido</p>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card>
+  </div>
+
+  <div flex
+       flex-gt-md="33.3">
+    <mat-card style="background: #3cbc2a;">
+      <div class="pad">
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListAvatar>park</mat-icon>
+            <h4 matLine
+                style="font-size: 1.6rem;">435 árboles</h4>
+            <p matLine>Reforestado</p>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card>
+  </div>
+
+  <div flex
+       flex-gt-md="33.3">
+    <mat-card style="background: #e9e8e7;">
+      <div class="pad">
+        <mat-list>
+          <mat-list-item>
+            <mat-icon style="color: #212121;"
+                      matListAvatar>attach_money
+            </mat-icon>
+            <h4 matLine
+                style="color: #212121; font-size: 1.6rem;">$135.000</h4>
+            <p style="color: #212121;"
+               matLine>Ahorrado
+            </p>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card>
+  </div>
+
+  <div flex="100"
+       flex-gt-xs="50">
+    <mat-card>
+      <mat-card-title>
+        <div layout="row"
+             layout-align="start center">
+          <span flex
+                matLine>Flujo</span>
+          <span>
+            <button mat-icon-button
+                    matTooltip="Card settings"
+                    [mat-menu-trigger-for]="settings3">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu xPosition="before"
+                      #settings3="matMenu">
+              <button mat-menu-item> Settings </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item> Remove </button>
+            </mat-menu>
+          </span>
+        </div>
+      </mat-card-title>
+      <mat-divider></mat-divider>
+      <div class="pad"
+           style="text-align: center;">
+        <!--<img style="max-height: 396px;"
+             src="assets/images/samples/energy-flow.svg">-->
+        <div style="height: 400px;">
+          <div class="card-content">
+            <div class="row">
+              <div class="circle-container solar">
+                <span class="label">Solar</span>
+                <div class="circle">
+                  <mat-icon>wb_sunny</mat-icon>
+                  5 kWh
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="circle-container grid">
+                <div class="circle">
+                  <span class="return"><mat-icon style="width: 14px; height: 14px; font-size: 14px; color: orangered;">west</mat-icon>1 kWh</span>
+                  <mat-icon>flash_on</mat-icon>
+                  <span class="consumption"><mat-icon style="width: 14px; height: 14px; font-size: 14px; color: blue;">east</mat-icon>0,2 kWh</span>
+                </div>
+                <span class="label">Red</span>
+              </div>
+
+              <div class="circle-container home">
+                <div class="circle   ">
+                  <mat-icon>home</mat-icon>
+                  4,2 kW
+                </div>
+                <span class="label">Hogar</span>
+              </div>
+
+            </div>
+            <div class="lines">
+              <svg viewBox="0 0 100 100"
+                   xmlns="http://www.w3.org/2000/svg"
+                   preserveAspectRatio="xMidYMid slice">
+                <path id="return"
+                      class="return"
+                      vector-effect="non-scaling-stroke"
+                      d="M47,0 v15 c0,40 -10,35 -30,35 h-20"></path>
+                <path id="solar"
+                      class="solar"
+                      vector-effect="non-scaling-stroke"
+                      d="M53,0 v15 c0,40 10,35 30,35 h20"></path>
+                <path class="grid"
+                      id="grid"
+                      vector-effect="non-scaling-stroke"
+                      d="M0,56 H100"></path>
+                <circle r="2"
+                        class="solar-circle"
+                        vector-effect="non-scaling-stroke">
+                  <animateMotion repeatCount="indefinite"
+                                 calcMode="linear"
+                                 dur="0.7s">
+                    <mpath xlink:href="#solar"></mpath>
+                  </animateMotion>
+                </circle>
+                <circle r="2"
+                        class="grid-circle"
+                        vector-effect="non-scaling-stroke">
+                  <animateMotion repeatCount="indefinite"
+                                 calcMode="linear"
+                                 dur="1.5s">
+                    <mpath xlink:href="#grid"></mpath>
+                  </animateMotion>
+                </circle>
+                <circle r="2"
+                        class="return-circle"
+                        vector-effect="non-scaling-stroke">
+                  <animateMotion repeatCount="indefinite"
+                                 calcMode="linear"
+                                 dur="1s">
+                    <mpath xlink:href="#return"></mpath>
+                  </animateMotion>
+                </circle>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div flex="100"
+       flex-gt-xs="50">
+    <mat-card>
+      <mat-card-title>
+        <div layout="row"
+             layout-align="start center">
+          <span flex>Gráfico</span>
+          <span>
+            <button mat-icon-button
+                    matTooltip="Card settings"
+                    [mat-menu-trigger-for]="settings3">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu xPosition="before"
+                      #settings3="matMenu">
+              <button mat-menu-item> Settings </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item> Remove </button>
+            </mat-menu>
+          </span>
+        </div>
+      </mat-card-title>
+      <mat-divider></mat-divider>
+      <div class="pad">
+        <div class="overflow-hidden">
+          <div style="width: 100%;">
+            <ngx-charts-area-chart-stacked [scheme]="colorScheme"
+                                           [results]="times"
+                                           [gradient]="true"
+                                           [xAxis]="true"
+                                           [yAxis]="false"
+                                           [legend]="false"
+                                           [showXAxisLabel]="false"
+                                           [showYAxisLabel]="false"
+                                           [xAxisLabel]="'X Label'"
+                                           [yAxisLabel]="'Y label'"
+                                           [xAxisTickFormatting]="axisDate">
+            </ngx-charts-area-chart-stacked>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div flex="100">
+    <mat-card>
+      <mat-card-title>
+        <div layout="row"
+             layout-align="start center">
+          <span flex
+                matLine>Historicos</span>
+          <span>
+            <button mat-icon-button
+                    matTooltip="Card settings"
+                    [mat-menu-trigger-for]="settings4">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu xPosition="before"
+                      #settings4="matMenu">
+              <button mat-menu-item> Settings </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item> Remove </button>
+            </mat-menu>
+          </span>
+        </div>
+      </mat-card-title>
+      <mat-divider></mat-divider>
+      <td-data-table [data]="historical"></td-data-table>
+    </mat-card>
+  </div>
+
+  <div flex="100">
+    <mat-card>
+      <td-json-formatter [data]="auth.getCredentials()"></td-json-formatter>
+    </mat-card>
+  </div>
+
+</div>

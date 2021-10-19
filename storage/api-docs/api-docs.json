@@ -1,0 +1,1720 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "NEXTGY",
+        "description": "NEXTGY OpenApi Documentation",
+        "contact": {
+            "email": "admin@nextgy.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://ionbase-nxg.test",
+            "description": "NEXTGY API Server"
+        }
+    ],
+    "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register as new user",
+                "operationId": "c7bb21a0d87049e161b8e4c9b0d909f2",
+                "requestBody": {
+                    "description": "Returns created new user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "first_name",
+                                    "last_name",
+                                    "password",
+                                    "password_confirmation",
+                                    "accept_terms_conditions"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    },
+                                    "first_name": {
+                                        "description": "User first name",
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "description": "User last name",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "User password confirmation",
+                                        "type": "string"
+                                    },
+                                    "accept_terms_conditions": {
+                                        "description": "User accept the terms and conditions",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login as user",
+                "operationId": "dd51a484b7fa0f97c7680fdbde14cf5f",
+                "requestBody": {
+                    "description": "Returns JWT and ACL user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "401": {
+                        "description": "Authentication failed"
+                    }
+                }
+            }
+        },
+        "/api/auth/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get authentidcated user info",
+                "description": "Returns user authenticated data",
+                "operationId": "b1eb3bba5d25e3becff8e61e26215556",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user data."
+                    },
+                    "401": {
+                        "description": "Reponse error."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout the user",
+                "operationId": "df9bdc6c7a6d9f20b983526b2ec0f698",
+                "responses": {
+                    "200": {
+                        "description": "Successful user loged out"
+                    },
+                    "401": {
+                        "description": "Authentication failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/refresh": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get a refreshed token",
+                "description": "Returns a refreshed token",
+                "operationId": "2d9ca89ff0a6d291124a94b024e5efe1",
+                "responses": {
+                    "200": {
+                        "description": "Refreshed token."
+                    },
+                    "401": {
+                        "description": "Reponse error."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/email/verify/{userId}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Veryfy the user",
+                "description": "Returns a message indicating that the user was verified",
+                "operationId": "577fdff2c5abd4b6e7261e244b151a28",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful user verified"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/auth/email/resend": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Resend email verification",
+                "operationId": "d82ae35dfe46d0834531817918195630",
+                "requestBody": {
+                    "description": "User email",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful resend verification email"
+                    },
+                    "422": {
+                        "description": "Validation error response"
+                    },
+                    "400": {
+                        "description": "Error response"
+                    }
+                }
+            }
+        },
+        "/api/auth/reset-password": {
+            "put": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update the user password",
+                "operationId": "1b56d92df30c52ddbb2feae8b9b13119",
+                "requestBody": {
+                    "description": "New user password and reset token",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password",
+                                    "token"
+                                ],
+                                "properties": {
+                                    "password": {
+                                        "description": "New user password",
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "description": "User reset password request token",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful password updated"
+                    },
+                    "422": {
+                        "description": "Validation error response"
+                    },
+                    "400": {
+                        "description": "Error response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Send a email whit recover password instructions",
+                "operationId": "b0a465da2e6ae1377ca7237227650c0a",
+                "requestBody": {
+                    "description": "User email",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful send email"
+                    },
+                    "422": {
+                        "description": "Validation error response"
+                    },
+                    "400": {
+                        "description": "Error response"
+                    }
+                }
+            }
+        },
+        "/api/auth/reset-password/{token}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Find the user reset password request",
+                "description": "Returns a message indicating that the user reset password request was finded",
+                "operationId": "8618df9d17724e7be5875ecd89c65f4b",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "User password reset token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful user verified"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get list of authors",
+                "description": "Returns list of authors",
+                "operationId": "b1de4facd6962392c6fde61f8a7b097a",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/per-page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated authors list."
+                    },
+                    "400": {
+                        "description": "Reponse error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Create author",
+                "operationId": "ff9d12ef46fc5034a0d4adf9d10b6de3",
+                "requestBody": {
+                    "description": "Returns created new author",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Author"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/authors/{id}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get author data",
+                "description": "Returns author data",
+                "operationId": "35c1b6d7002827ab95f68425b845db97",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Author ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful get author data"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Update author",
+                "description": "Returns updated author data",
+                "operationId": "8797e8c11aa3838017483c14703f088c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Author ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Returns updated new author",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Author"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Delete existing author",
+                "description": "Delete a author and returns it",
+                "operationId": "c56695bdfa8aa06b4a00f609c64bdc40",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Author ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/authors/delete-multiple": {
+            "put": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Delete authors",
+                "description": "Returns authors deleted",
+                "operationId": "26e831244c582eb8f8a2149fc3ae314e",
+                "requestBody": {
+                    "description": "Array of ids to delete authors",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "author_ids"
+                                ],
+                                "properties": {
+                                    "author_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful authors deleted"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/authors/export": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get xls file of all authors",
+                "description": "Returns list of all authors in a excel file",
+                "operationId": "3f40a37dd19663f58185ab1c522c3bc0",
+                "responses": {
+                    "200": {
+                        "description": "Successful get authors xls file"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get list of books",
+                "description": "Returns list of books",
+                "operationId": "9017a3fa89d6636329067c858b27a6fa",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/per-page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated books list."
+                    },
+                    "400": {
+                        "description": "Reponse error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Create book",
+                "operationId": "72f82e1cd6f08112323f87053277ca99",
+                "requestBody": {
+                    "description": "Returns created new book",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/books/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get book data",
+                "description": "Returns book data",
+                "operationId": "123856ec83e3466396b979a43eb1a15f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful get book data"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Update book",
+                "description": "Returns updated book data",
+                "operationId": "2fc15aa806ac989f4d2b201b5952714d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Returns updated new book",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Delete existing book",
+                "description": "Delete a book and returns it",
+                "operationId": "eda12c526d0ccacaecea5f3d8f15d6df",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/books/delete-multiple": {
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Delete books",
+                "description": "Returns books deleted",
+                "operationId": "7fa337f94c656c728e22a1928991e19b",
+                "requestBody": {
+                    "description": "Array of ids to delete books",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "book_ids"
+                                ],
+                                "properties": {
+                                    "book_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful books deleted"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/books/export": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get xls file of all books",
+                "description": "Returns list of all books in a excel file",
+                "operationId": "6c03df3a156d5affad1963383028d84a",
+                "responses": {
+                    "200": {
+                        "description": "Successful get books xls file"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/genres": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get list of genres",
+                "description": "Returns list of genres",
+                "operationId": "0ff78353b1c27ef8905e58f3cf31370a",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/per-page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated genres list."
+                    },
+                    "400": {
+                        "description": "Reponse error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Create genre",
+                "operationId": "8d21057e41193b21373f4e2cce0a8c73",
+                "requestBody": {
+                    "description": "Returns created new genre",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Genre"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/genres/{id}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get genre data",
+                "description": "Returns genre data",
+                "operationId": "cec9d00fae56cff69cba705f6b436983",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Genre ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful get genre data"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Update genre",
+                "description": "Returns updated genre data",
+                "operationId": "9ec4944f7fd50bd7280fb1366c748709",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Genre ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Returns updated new genre",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Genre"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Delete existing genre",
+                "description": "Delete a genre and returns it",
+                "operationId": "1890f1018746d6e4385aa0c3244acc08",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Genre ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/genres/delete-multiple": {
+            "put": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Delete genres",
+                "description": "Returns genres deleted",
+                "operationId": "c448b0082c11823005e264754836c0d6",
+                "requestBody": {
+                    "description": "Array of ids to delete genres",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "genre_ids"
+                                ],
+                                "properties": {
+                                    "genre_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful genres deleted"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/genres/export": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get xls file of all genres",
+                "description": "Returns list of all genres in a excel file",
+                "operationId": "d635ee7950ff935d59e993f446bfc26a",
+                "responses": {
+                    "200": {
+                        "description": "Successful get genres xls file"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/tags": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get list of tags",
+                "description": "Returns list of tags",
+                "operationId": "65f85cc85cd13d2454b6c88ffff5cc3a",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/per-page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated tags list."
+                    },
+                    "400": {
+                        "description": "Reponse error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Create tag",
+                "operationId": "467bf3e5824fd78f9cdfb70c0ba9b172",
+                "requestBody": {
+                    "description": "Returns created new tag",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Tag"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/tags/{id}": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get tag data",
+                "description": "Returns tag data",
+                "operationId": "7dfec953833476181cb9da3ada88ce76",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tag ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful get tag data"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Update tag",
+                "description": "Returns updated tag data",
+                "operationId": "ad61cc1b60600b578f626a615aec1e46",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tag ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Returns updated new tag",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "model": {
+                                        "$ref": "#/components/schemas/Tag"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful book created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Delete existing tag",
+                "description": "Delete a tag and returns it",
+                "operationId": "556f3044efa071c0209e19df24a54e3d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tag ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/tags/delete-multiple": {
+            "put": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Delete tags",
+                "description": "Returns tags deleted",
+                "operationId": "22c0266c96b9451fcc50ae40a665ec73",
+                "requestBody": {
+                    "description": "Array of ids to delete tags",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tag_ids"
+                                ],
+                                "properties": {
+                                    "tag_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful tags deleted"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/tags/export": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get xls file of all tags",
+                "description": "Returns list of all tags in a excel file",
+                "operationId": "8374b57d95ac8ee695a58761843b7537",
+                "responses": {
+                    "200": {
+                        "description": "Successful get tags xls file"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Author": {
+                "required": [
+                    "name",
+                    "gender"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Author ID",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "description": "Author  name; it tis unique",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "Author code; it is unique",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "gender": {
+                        "description": "Genero del autor",
+                        "type": "string"
+                    },
+                    "birth_date": {
+                        "description": "Author birthdate",
+                        "type": "date"
+                    },
+                    "book_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "example": [
+                            1,
+                            2
+                        ]
+                    },
+                    "created_at": {
+                        "description": "Initial creation timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "deleted_at": {
+                        "description": "Soft delete timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Author"
+                }
+            },
+            "Book": {
+                "required": [
+                    "title",
+                    "edition"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Book ID",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "title": {
+                        "description": "Book title",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "Book code; is generated by the system",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "genre_id": {
+                        "description": "Book genre",
+                        "type": "integer"
+                    },
+                    "cover": {
+                        "description": "Book cover url; it is display as file input",
+                        "type": "string"
+                    },
+                    "published_at": {
+                        "description": "Book published date",
+                        "type": "date"
+                    },
+                    "edition": {
+                        "description": "Book edition number",
+                        "type": "integer"
+                    },
+                    "bought_at": {
+                        "description": "Book bought date and time",
+                        "type": "timestamp"
+                    },
+                    "resume": {
+                        "description": "Book resume; it is display as rich text input",
+                        "type": "longtext"
+                    },
+                    "tag_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "example": [
+                            1,
+                            2
+                        ]
+                    },
+                    "author_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "example": [
+                            1,
+                            2
+                        ]
+                    },
+                    "created_at": {
+                        "description": "Initial creation timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "deleted_at": {
+                        "description": "Soft delete timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Book"
+                }
+            },
+            "Genre": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Genre ID",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "description": "Genre name; it is unique",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "Genre code; it is unique",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "created_at": {
+                        "description": "Initial creation timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "deleted_at": {
+                        "description": "Soft delete timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Genre"
+                }
+            },
+            "Tag": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Tag ID",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "description": "Tag name; it is unique",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "Tag code; it is unique",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "book_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "example": [
+                            1,
+                            2
+                        ]
+                    },
+                    "created_at": {
+                        "description": "Initial creation timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "deleted_at": {
+                        "description": "Soft delete timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Tag"
+                }
+            }
+        },
+        "parameters": {
+            "query": {
+                "name": "query",
+                "in": "query",
+                "description": "A list of query to filter by columns - example: query=[{\"column\":\"name\",\"operator\":\"cont\",\"text\":\"lorem\"}]",
+                "required": false
+            },
+            "sort": {
+                "name": "sort",
+                "in": "query",
+                "description": "A query to sort by column - example: sort={\"column\":\"name\",\"direction\":\"desc\"}",
+                "required": false
+            },
+            "per-page": {
+                "name": "per-page",
+                "in": "query",
+                "description": "A number for items per page list - example: per-page=20",
+                "required": false
+            },
+            "page": {
+                "name": "page",
+                "in": "query",
+                "description": "A page number for paginated list - example: page=2",
+                "required": false
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "JSON Web token",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "API Auth Endpoints"
+        },
+        {
+            "name": "Authors",
+            "description": "API Endpoints of authors"
+        },
+        {
+            "name": "Books",
+            "description": "API Endpoints of books"
+        },
+        {
+            "name": "Genres",
+            "description": "API Endpoints of genres"
+        },
+        {
+            "name": "Tags",
+            "description": "API Endpoints of tags"
+        }
+    ],
+    "security": [
+        []
+    ]
+}

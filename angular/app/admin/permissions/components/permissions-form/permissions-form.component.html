@@ -1,0 +1,83 @@
+<div flex
+     class="pad">
+
+  <form #form="ngForm"
+        (ngSubmit)="permissionService.save()"
+        novalidate>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput
+             type="text"
+             name="name"
+             id="name"
+             placeholder="Nombres del usuario"
+             #name="ngModel"
+             [(ngModel)]="permissionService.model.name"
+             required>
+      <mat-error class="error"
+                 *ngIf="name.hasError('required')">El campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Código</mat-label>
+      <input matInput
+             type="text"
+             name="code"
+             id="code"
+             placeholder="Código del rol"
+             #code="ngModel"
+             [(ngModel)]="permissionService.model.code"
+             [readonly]="true">
+      <mat-error class="error"
+                 *ngIf="code.hasError('required')">El campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <input type="hidden"
+           name="user_permission_ids"
+           id="user_permission_ids"
+           #user_role_ids="ngModel"
+           [(ngModel)]="permissionService.model.user_role_ids">
+    <app-belongs-to-many-input [label]="'Roles'"
+                               [required]="true"
+                               (selectOut)="setUserRoles($event)"
+                               (selectIdsOut)="setUserRoleIds($event)"
+                               [searchInputLabel]="'Agregar rol'"
+                               [searchInputPlaceholder]="'Busca el nombre del rol'"
+                               [selected]="permissionService.model.user_roles ?? []"
+                               [selectedIds]="permissionService.model.user_role_ids ?? []"
+                               [searchUrl]="'api/roles'"
+                               [searchDisplayColumns]="['name']"
+                               [searchColumns]="['name']"
+                               [notFoundUrl]="'/admin/users/roles/0'"
+                               [notFoundButtonText]="'Crear rol'"
+                               [notFoundMessage]="'No se encontraron roles'"></app-belongs-to-many-input>
+
+  </form>
+
+  <div class="pad-top-lg">
+    <button mat-raised-button
+            color="success"
+            [disabled]="form.invalid"
+            (click)="permissionService.save()"
+            class="text-upper">Guardar
+    </button>
+    <button mat-button
+            (click)="permissionService.setItem({id: 0}); permissionsListComponent.router.navigateByUrl('/admin/users/roles'); permissionsListComponent.sidenav.sidenav.close()"
+            color="warn"
+            class="text-upper">Cancelar
+    </button>
+  </div>
+
+
+</div>
+
+<div *ngIf="!environment.production">
+<pre>
+{{permissionService.model |  json}}
+</pre>
+</div>

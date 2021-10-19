@@ -1,0 +1,25 @@
+:host {
+  ::ng-deep {
+    .mat-drawer-inner-container {
+      .mat-toolbar.td-nagivation-drawer-toolbar {
+        display: none !important;
+      }
+    }
+    .mat-nav-list.mat-list-base {
+      padding-top: 0;
+    }
+    .td-layout-nav-wrapper {
+      .mat-toolbar {
+        z-index: 2;
+      }
+      .mat-toolbar.td-layout-toolbar {
+        color: #e9e8e7 !important;
+      }
+    }
+  }
+}
+
+.layout-main-content {
+  overflow-x: hidden;
+}
+

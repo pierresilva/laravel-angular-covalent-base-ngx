@@ -1,0 +1,103 @@
+<div flex
+     class="pad">
+
+  <form #form="ngForm"
+        (ngSubmit)="roleService.save()"
+        novalidate>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput
+             type="text"
+             name="name"
+             id="name"
+             placeholder="Nombres del usuario"
+             #name="ngModel"
+             [(ngModel)]="roleService.model.name"
+             required>
+      <mat-error class="error"
+                 *ngIf="name.hasError('required')">El campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Código</mat-label>
+      <input matInput
+             type="text"
+             name="code"
+             id="code"
+             placeholder="Código del rol"
+             #code="ngModel"
+             [(ngModel)]="roleService.model.code"
+             [readonly]="true">
+      <mat-error class="error"
+                 *ngIf="code.hasError('required')">El campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <input type="hidden"
+           name="user_permission_ids"
+           id="user_permission_ids"
+           #user_permission_ids="ngModel"
+           [(ngModel)]="roleService.model.user_permission_ids">
+    <app-belongs-to-many-input [label]="'Permisos'"
+                               [required]="true"
+                               (selectOut)="setUserPermissions($event)"
+                               (selectIdsOut)="setUserPermissionIds($event)"
+                               [searchInputLabel]="'Agregar permiso'"
+                               [searchInputPlaceholder]="'Busca el nombre del permiso'"
+                               [selected]="roleService.model.user_permissions ?? []"
+                               [selectedIds]="roleService.model.user_permission_ids ?? []"
+                               [searchUrl]="'api/permissions'"
+                               [searchDisplayColumns]="['name']"
+                               [searchColumns]="['name']"
+                               [notFoundUrl]="'/users/permissions/0'"
+                               [notFoundButtonText]="'Crear permiso'"
+                               [notFoundMessage]="'No se encontraron permisos'"></app-belongs-to-many-input>
+
+    <input type="hidden"
+           name="user_ids"
+           id="user_ids"
+           #user_ids="ngModel"
+           [(ngModel)]="roleService.model.user_ids">
+
+    <app-belongs-to-many-input [label]="'Usuarios'"
+                               [required]="true"
+                               (selectOut)="setUsers($event)"
+                               (selectIdsOut)="setUserIds($event)"
+                               [searchInputLabel]="'Agregar usuario'"
+                               [searchInputPlaceholder]="'Busca el nombre del usuario'"
+                               [selected]="roleService.model.users ?? []"
+                               [selectedIds]="roleService.model.user_ids ?? []"
+                               [searchUrl]="'api/users'"
+                               [searchDisplayColumns]="['name']"
+                               [searchColumns]="['name']"
+                               [notFoundUrl]="'/users/users/0'"
+                               [notFoundButtonText]="'Crear usuario'"
+                               [notFoundMessage]="'No se encontraron usuarios'"></app-belongs-to-many-input>
+
+  </form>
+
+  <div class="pad-top-lg">
+    <button mat-raised-button
+            color="success"
+            [disabled]="form.invalid"
+            (click)="roleService.save()"
+            class="text-upper">Guardar
+    </button>
+    <button mat-button
+            (click)="roleService.setItem({id: 0}); rolesListComponent.router.navigateByUrl('/admin/users/roles'); rolesListComponent.sidenav.sidenav.close()"
+            color="warn"
+            class="text-upper">Cancelar
+    </button>
+  </div>
+
+</div>
+
+<div *ngIf="!environment.production">
+<pre>
+{{roleService.model |  json}}
+</pre>
+</div>

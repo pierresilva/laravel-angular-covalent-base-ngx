@@ -1,0 +1,57 @@
+<h4 *ngIf="label"
+    style="margin-bottom: 0;">{{label}}
+  <ng-container *ngIf="required"> *</ng-container>
+</h4>
+<mat-chip-list class="mat-chip-list-stacked"
+               *ngIf="selected">
+  <mat-chip [removable]="true"
+            (removed)="removeItem()">
+    <ng-container>
+      <span><b>{{selected.name}}</b></span>
+    </ng-container>
+    <span flex></span>
+    <button matChipRemove>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip>
+</mat-chip-list>
+<mat-form-field style="width: 100%;"
+                appearance="outline">
+  <mat-label>{{searchInputLabel}}</mat-label>
+  <input matInput
+         #dataSearch
+         [formControl]="searchInput"
+         [placeholder]="searchInputPlaceholder"
+         [matAutocomplete]="autocompleteTags">
+  <mat-autocomplete #autocompleteTags="matAutocomplete">
+    <mat-option *ngIf="isLoading"
+                class="is-loading">{{loadingText}}
+    </mat-option>
+    <ng-container *ngIf="!isLoading && filteredData.length">
+      <mat-option *ngFor="let item of filteredData"
+                  (onSelectionChange)="addItem(item)"
+                  [value]="item.id">
+        <ng-container *ngFor="let column of searchDisplayColumns">
+          <span><b>{{item[column]}}</b></span>
+        </ng-container>
+
+      </mat-option>
+    </ng-container>
+    <ng-container *ngIf="!isLoading && !filteredData.length">
+      <mat-option [value]="null">
+          <span>
+            <b>{{notFoundMessage}}</b>
+            <ng-container *ngIf="notFoundUrl && notFoundButtonText">
+              <a mat-button
+                 [routerLink]="notFoundUrl">{{notFoundButtonText}}</a>
+            </ng-container>
+          </span>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+  <mat-hint style="color: red;"
+            *ngIf="required && !selectedId">
+    <span translate>Assign one</span> <span translate>{{label}}</span>
+  </mat-hint>
+</mat-form-field>
+

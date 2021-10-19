@@ -1,0 +1,150 @@
+/*
+ * Application global variables.
+ */
+
+// Angular Material custom theme
+// See https://material.angular.io/guide/theming for more details.
+//
+// You can also read https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1
+// for more insight about Angular Material theming.
+
+@import "~@angular/material/theming";
+@import "~@covalent/core/theming/all-theme";
+@import "~@covalent/markdown/markdown-theme";
+@import "~@covalent/highlight/highlight-theme";
+
+$typography: mat-typography-config(
+  $font-family: "Roboto, monospace",
+  $headline: mat-typography-level(32px, 48px, 700)
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$primary: mat-palette($mat-orange, 700);
+$accent: mat-palette($mat-orange, 400);
+
+// The warn palette is optional (defaults to red).
+$warn: mat-palette($mat-red, 600);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+@include covalent-theme($theme, $typography); // $typography is an **optional** argument for the covalent-theme
+@include covalent-markdown-theme($theme);
+@include covalent-highlight-theme();
+
+// Dark theme
+.theme-dark {
+  $primary-dark: mat-palette($mat-orange, 900);
+  $accent-dark: mat-palette($mat-deep-orange, A400);
+  $warn-dark: mat-palette($mat-red, 600);
+  $theme-dark: mat-dark-theme($primary-dark, $accent-dark, $warn-dark);
+  @include angular-material-theme($theme-dark);
+  @include covalent-theme($theme-dark, $typography);
+
+  .tc-primary {
+    color: mat-color($primary-dark);
+  }
+
+  .tc-accent,
+  a {
+    color: mat-color($accent-dark);
+  }
+
+  a:hover {
+    color: darken(mat-color($accent-dark), 10%);
+  }
+
+  .tc-warn {
+    color: mat-color($warn-dark);
+  }
+
+  // NGX Charts
+  [ngx-charts-axis-label] text,
+  .tick text {
+    fill: rgba(white, 0.5);
+  }
+
+  .gridline-path {
+    &.gridline-path-horizontal,
+    &.gridline-path-vertical {
+      stroke: rgba(white, 0.06);
+    }
+  }
+
+  .legend-title-text {
+    color: rgba(white, 0.5);
+  }
+}
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+// $app-primary: mat-palette($mat-blue);
+// stylelint-disable-next-line value-keyword-case
+// $app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+// $app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+// $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+// Material design icons font path
+$material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
+
+// Include the core styles for Covalent
+@include covalent-core();
+
+// Include pre-bundled material-icons
+$mat-font-url: "~@covalent/core/common/styles/font/";
+
+@include covalent-material-icons();
+// Alternative way to include material-icons
+// @import '../node_modules/@covalent/core/common/material-icons.css';
+
+// Include covalent utility classes
+@include covalent-utilities();
+
+// Include flex layout classes
+@include covalent-layout();
+
+// Include covalent color classes
+@include covalent-colors();
+
+@import "~@ionic/angular/css/core.css";
+
+/*
+{
+                "input": "node_modules/@ionic/angular/css/core.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/normalize.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/structure.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/typography.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/display.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/padding.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/float-elements.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-alignment.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-transformation.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/flex-utils.css"
+              },
+ */

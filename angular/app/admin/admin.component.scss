@@ -1,0 +1,60 @@
+.component-card {
+  transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+  display: flexbox;
+  display: flex;
+  height: 144px;
+  padding: 16px 16px 20px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
+
+  .component-card-body {
+    height: 40px;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-word;
+    -webkit-line-clamp: 2;
+    display: box;
+    text-overflow: ellipsis;
+    box-orient: vertical;
+  }
+}
+
+svg {
+  width: 300px;
+  display: block;
+  position: absolute;
+}
+
+.ball {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  offset-path: path("M10 80 Q 77.5 10, 145 80 T 280 80");
+  offset-distance: 0%;
+  animation: red-ball 2s linear alternate infinite;
+}
+
+@keyframes red-ball {
+  from {
+    offset-distance: 0%;
+  }
+
+  to {
+    offset-distance: 100%;
+  }
+}
+
+::ng-deep {
+
+  .mat-list-base .mat-list-item .mat-list-avatar, .mat-list-base .mat-list-option .mat-list-avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  .mat-list-base .mat-list-item .mat-line:nth-child(n+2) {
+    // font-size: 2rem;
+  }
+}

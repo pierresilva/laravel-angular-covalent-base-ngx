@@ -1,0 +1,44 @@
+<div class="pad">
+
+  <mat-card>
+    <mat-card-title>Notificaciones</mat-card-title>
+    <mat-card-subtitle>Mantente al día con tus consumos</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-nav-list flex>
+      <ng-template let-item
+                   let-i="index"
+                   let-last="last"
+                   ngFor
+                   [ngForOf]="[0,1,2,3,4,5,6,7,8,9]">
+        <a mat-list-item
+           [routerLink]="'/user/notifications/' +  (i+1)">
+          <mat-icon [ngStyle]="{color: ((i%3) ? 'red' : (i%2) ? 'blue' : 'orange' )}"
+                    matListAvatar>{{((i % 3) ? 'error' : (i % 2) ? 'info' : 'warning')}}</mat-icon>
+          <div matLine><span>Notification title</span> <span *ngIf="!isMobile"
+                                                             style="color: gray;">{{'2021-08-21 11:32:54' | date:'dd/MM/YYYY'}}</span>
+          </div>
+          <p matLine
+             *ngIf="!isMobile">
+            {{ 'Farm-to-table poke distillery, bushwick messenger bag vaporware neutra artisan paleo. Single-origin coffee shabby chic glossier lumberjack chambray dreamcatcher, blue bottle raclette.' | truncate:200 }}
+          </p>
+          <p matLine
+             style="color: gray;"
+             *ngIf="isMobile">
+            {{'2021-08-21 11:32:54' | date}}
+          </p>
+
+          <button mat-icon-button
+                  matTooltip="Eliminar notificación">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </a>
+        <mat-divider *ngIf="!last"></mat-divider>
+      </ng-template>
+    </mat-nav-list>
+  </mat-card>
+
+</div>
+
+
+
+

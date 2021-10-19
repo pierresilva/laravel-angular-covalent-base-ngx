@@ -1,0 +1,21 @@
+<mat-sidenav #sidenav
+             [disableClose]="true"
+             style="width: 100%;"
+             mode="over"
+             position="end">
+  <div layout="column"
+       layout-fill>
+    <mat-toolbar style="position: fixed;">
+      <button mat-icon-button
+              (click)="authorsListComponent.router.navigateByUrl('/admin/authors'); sidenav.close(); authorsListComponent.authorService.model ={id: 0}">
+        <mat-icon>close</mat-icon>
+      </button>
+      {{ authorsListComponent.authorService.model.id ? ('Edit' | translate) + ' ' + ('AUTHOR' | translate) : ('Create' | translate) + ' ' + ('AUTHOR' | translate) }}
+    </mat-toolbar>
+    <div flex
+         [ngStyle]="{marginTop: layoutService.isMobile ? '56px' : '64px'}"
+         class="mat-content">
+      <app-authors-form></app-authors-form>
+    </div>
+  </div>
+</mat-sidenav>

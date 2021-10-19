@@ -1,0 +1,21 @@
+<mat-sidenav #sidenav
+             [disableClose]="true"
+             style="width: 100%;"
+             mode="over"
+             position="end">
+  <div layout="column"
+       layout-fill>
+    <mat-toolbar style="position: fixed;">
+      <button mat-icon-button
+              (click)="genresListComponent.router.navigateByUrl('/admin/genres'); sidenav.close(); genresListComponent.genreService.model ={id: 0}">
+        <mat-icon>close</mat-icon>
+      </button>
+      {{ genresListComponent.genreService.model.id ? ('Edit' | translate) + ' ' + ('GENRE' | translate) : ('Create' | translate) + ' ' + ('GENRE' | translate) }}
+    </mat-toolbar>
+    <div flex
+         [ngStyle]="{marginTop: layoutService.isMobile ? '56px' : '64px'}"
+         class="mat-content">
+      <app-genres-form></app-genres-form>
+    </div>
+  </div>
+</mat-sidenav>

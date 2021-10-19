@@ -1,0 +1,25 @@
+<mat-nav-list [tdLayoutManageListToggle]="!layoutService.media.query('gt-sm')">
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLinkActiveOptions]="{exact: true}"
+     routerLink="/covalent">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>local_library
+    </mat-icon>
+    <h3 matLine> Library </h3>
+    <p matLine> Library home</p>
+  </a>
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     routerLink="/covalent/authors">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>people
+    </mat-icon>
+    <h3 matLine> Authors </h3>
+    <p matLine> Books authors manage</p>
+  </a>
+
+</mat-nav-list>

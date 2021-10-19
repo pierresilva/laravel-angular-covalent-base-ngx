@@ -1,0 +1,212 @@
+<!--<mat-card tdMediaToggle="gt-xs"
+          [mediaClasses]="['push']">
+  <mat-card-header>
+
+    <mat-card-title>Firstname Lastname</mat-card-title>
+    <mat-card-subtitle>January 3 2017</mat-card-subtitle>
+    <span flex></span>
+    <div class="pad-top pad-right">
+
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <div class="mat-padding">
+    <p>
+      Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to
+      corporate strategy foster collaborative thinking to further the overall value proposition. Organically
+      grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
+    </p>
+    <p>
+      Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day,
+      going forward, a new normal that has evolved from generation X is on the runway heading towards a
+      streamlined cloud solution. User generated content in real-time will have multiple touchpoints for
+      offshoring.
+    </p>
+    <p>
+      Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the
+      digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information
+      highway will close the loop on focusing solely on the bottom line.
+    </p>
+    <p>
+      Podcasting operational change management inside of workflows to establish a framework. Taking seamless
+      key performance indicators offline to maximise the long tail. Keeping your eye on the ball while
+      performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.
+    </p>
+    <p>
+      Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to
+      corporate strategy foster collaborative thinking to further the overall value proposition. Organically
+      grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
+    </p>
+    <p>
+      Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day,
+      going forward, a new normal that has evolved from generation X is on the runway heading towards a
+      streamlined cloud solution. User generated content in real-time will have multiple touchpoints for
+      offshoring.
+    </p>
+    <p>
+      Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the
+      digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information
+      highway will close the loop on focusing solely on the bottom line.
+    </p>
+    <p>
+      Podcasting operational change management inside of workflows to establish a framework. Taking seamless
+      key performance indicators offline to maximise the long tail. Keeping your eye on the ball while
+      performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.
+    </p>
+    <p>
+      Sincerly<br>-Kimmie
+    </p>
+  </div>
+  <mat-divider></mat-divider>
+  <div layout="row"
+       layout-align="space-around center"
+       class="pad">
+    <button mat-button
+            class="tc-grey-600">
+      <mat-icon class="pull-bottom">reply</mat-icon>
+      <div class="mat-caption">Reply</div>
+    </button>
+    <button mat-button
+            class="tc-grey-600">
+      <mat-icon class="pull-bottom">reply_all</mat-icon>
+      <div class="mat-caption">Reply All</div>
+    </button>
+    <button mat-button
+            class="tc-grey-600">
+      <mat-icon class="pull-bottom">forward</mat-icon>
+      <div class="mat-caption">Forward</div>
+    </button>
+  </div>
+</mat-card>-->
+<section class="push-md">
+  <div class="push-bottom-lg pad-bottom-xs">
+
+    <div layout="row"
+         layout-wrap>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/authors'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">portrait</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Authors</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | ellipsis:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/tags'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">bookmarks</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Tags</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/genres'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">book</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Genres</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/books'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">menu_book</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Books</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]">
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/books'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">menu_book</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Books</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+<!-- Shell notifications menu -->
+<span>
+  <button mat-icon-button
+          matTooltip="Alerts"
+          [matMenuTriggerFor]="notificationsMenu">
+    <td-notification-count color="accent"
+                           [notifications]="4">
+      <mat-icon>notifications</mat-icon>
+    </td-notification-count>
+  </button>
+  <mat-menu #notificationsMenu="matMenu">
+    <td-menu>
+      <div td-menu-header
+           class="mat-subhead">Notificaciones</div>
+      <mat-nav-list dense>
+        <ng-template let-last="last"
+                     ngFor
+                     [ngForOf]="[0,1,2,3]">
+          <a mat-list-item>
+            <mat-icon matListAvatar>today</mat-icon>
+            <h4 mat-line><span class="text-wrap">Candy sales are on the rise!</span></h4>
+            <p mat-line>22 minutes ago</p>
+          </a>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </ng-template>
+      </mat-nav-list>
+      <button mat-button
+              [routerLink]="'/user/notifications'"
+              color="accent"
+              td-menu-footer>
+        Todas las notificaciones
+      </button>
+    </td-menu>
+  </mat-menu>
+</span>

@@ -1,0 +1,45 @@
+<td-chips color="accent"
+          [items]="filteredObjects"
+          [(ngModel)]="objectsModel"
+          placeholder="Type here"
+          (inputChange)="filterObjects($event)"
+          inputPosition="before"
+          [stacked]="true"
+          [requireMatch]="true">
+  <ng-template td-chip
+               let-chip="chip">
+    <span class="text-truncate">{{ chip.city }}</span>
+  </ng-template>
+  <ng-template td-autocomplete-option
+               let-option="option">
+    <div layout="row"
+         layout-align="start center">
+      <mat-icon>location_city</mat-icon>
+      {{ option.city }}
+    </div>
+  </ng-template>
+</td-chips>
+
+<mat-form-field class="example-form-field"
+                appearance="outline">
+  <mat-label>Clearable input</mat-label>
+  <input matInput
+         type="text"
+         [(ngModel)]="value">
+  <button *ngIf="value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="value=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+
+<td-file-input class="push-left-sm push-right-sm"
+               #fileInput
+               [(ngModel)]="files"
+               [multiple]="true">
+  <mat-icon>folder</mat-icon>
+  <span class="text-upper">Browse...</span>
+</td-file-input>

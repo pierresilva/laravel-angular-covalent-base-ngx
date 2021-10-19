@@ -1,0 +1,123 @@
+<div flex
+     class="pad">
+
+  <form #form="ngForm"
+        (ngSubmit)="userService.save()"
+        novalidate>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Nombres</mat-label>
+      <input matInput
+             type="text"
+             name="first_name"
+             id="first_name"
+             placeholder="Nombres del usuario"
+             #first_name="ngModel"
+             [(ngModel)]="userService.model.first_name"
+             required>
+      <mat-error class="error"
+                 *ngIf="first_name.hasError('required')">El campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Apellidos</mat-label>
+      <input matInput
+             type="text"
+             name="last_name"
+             id="last_name"
+             placeholder="Apellidos del usuario"
+             #last_name="ngModel"
+             [(ngModel)]="userService.model.last_name"
+             required>
+      <mat-error class="error"
+                 *ngIf="last_name.hasError('required')">El campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput
+             type="email"
+             name="email"
+             id="email"
+             placeholder="Correo  electrónico"
+             email
+             required
+             #email="ngModel"
+             [(ngModel)]="userService.model.email">
+      <mat-error class="error"
+                 *ngIf="email.invalid">Ingrese un correo electrónico valido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput
+             type="password"
+             name="password"
+             id="password"
+             placeholder="Cambie la contraña del usuario"
+             minlength="6"
+             [required]="userService.model.id === 0"
+             #password="ngModel"
+             [(ngModel)]="userService.model.password">
+      <mat-error class="error"
+                 *ngIf="password.hasError('minlength')">Ingrese una contraseña valida de al menos 6 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <input type="hidden"
+           name="user_role_ids"
+           id="user_role_ids"
+           #user_role_ids="ngModel"
+           [(ngModel)]="userService.model.user_role_ids"
+           [required]="!userService.model?.user_role_ids?.length">
+    <mat-error class="error"
+               *ngIf="user_role_ids.invalid">Asigne al menos un rol
+    </mat-error>
+    <app-belongs-to-many-input [label]="'Roles'"
+                               [min]="1"
+                               [max]="3"
+                               [required]="true"
+                               (selectOut)="setUserRoles($event)"
+                               (selectIdsOut)="setUserRoleIds($event)"
+                               [searchInputLabel]="'Agregar Rol'"
+                               [searchInputPlaceholder]="'Busca el nombre del rol'"
+                               [selected]="userService.model.user_roles ?? []"
+                               [selectedIds]="userService.model.user_role_ids ?? []"
+                               [searchUrl]="'api/roles'"
+                               [searchDisplayColumns]="['name']"
+                               [searchColumns]="['name']"
+                               [notFoundUrl]="'/users/roles/0'"
+                               [notFoundButtonText]="'Crear rol'"
+                               [notFoundMessage]="'No se encontraron roles'"></app-belongs-to-many-input>
+
+  </form>
+
+  <div class="pad-top-lg">
+    <button mat-raised-button
+            color="success"
+            [disabled]="form.invalid"
+            (click)="userService.save()"
+            class="text-upper">Guardar
+    </button>
+    <button mat-button
+            (click)="userService.setItem({}); usersListComponent.router.navigateByUrl('/admin/users/users'); usersListComponent.sidenav.sidenav.close()"
+            color="warn"
+            class="text-upper">Cancelar
+    </button>
+  </div>
+
+
+</div>
+
+<div>
+  <pre>
+{{userService.model | json}}
+  </pre>
+</div>

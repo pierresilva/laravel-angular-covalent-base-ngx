@@ -1,0 +1,120 @@
+<mat-sidenav-container flex>
+
+  <app-roles-sidenav #sidenav></app-roles-sidenav>
+
+  <div layout="row"
+       style="min-height: 53px;"
+       layout-align="start center"
+       class="pad-left-sm pad-right-sm"
+       [class.mat-selected-title]="roleService.selectedItems.length && roleService.selectable">
+     <span *ngIf="!searchBox.searchVisible"
+           class="push-left-sm">
+       <span *ngIf="(roleService.selectable && !roleService.selectedItems.length) || !roleService.selectable"
+             class="mat-title">Roles</span>
+       <button mat-flat-button
+               [color]="'warn'"
+               (click)="roleService.deleteMultiple()"
+               *ngIf="roleService.selectedItems.length && roleService.selectable">
+         Eliminar {{ roleService.selectedItems.length }} item(s)
+       </button>
+     </span>
+    <td-search-box #searchBox
+                   [ngStyle]="{display: roleService.selectedItems.length ? 'none' : 'block'}"
+                   backIcon="arrow_back"
+                   class="push-right-sm"
+                   placeholder="Buscar roles"
+                   (close)="roleService.setSearchTerm(null); roleService.getItems()"
+                   (searchDebounce)="roleService.setSearchTerm($event); roleService.getItems()"
+                   flex></td-search-box>
+  </div>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="roleService.items.length">
+    <td-data-table #dataTable
+                   [ngClass]="{'layout-mat-sidenav-container': !layoutService.isMobile, 'layout-mat-sidenav-container-mobile': layoutService.isMobile}"
+                   [data]="roleService.items"
+                   [columns]="roleService.columns"
+                   [selectable]="roleService.selectable"
+                   [clickable]="roleService.clickable"
+                   [multiple]="roleService.multiple"
+                   [sortable]="true"
+                   [sortBy]="'id'"
+                   [resizableColumns]="false"
+                   [(ngModel)]="roleService.selectedItems"
+                   [sortOrder]="roleService.sortOrder"
+                   (sortChange)="roleService.setSortBy($event); roleService.getItems()"
+                   (rowClick)="null">
+
+     <ng-template tdDataTableTemplate="name"
+                   let-index="index"
+                   let-value="value">
+        <span matLine [title]="value">{{value}}</span>
+
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="code"
+                   let-index="index"
+                   let-value="value">
+        <span matLine [title]="value">{{value}}</span>
+
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="created_at"
+                   let-index="index"
+                   let-value="value">
+        {{value | date:'dd/MM/YYYY'}}
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="id"
+                   let-index="index"
+                   let-value="value">
+        <button mat-icon-button
+                style="margin-left: -26px;"
+                [routerLink]="'/admin/roles/' + value"
+                (click)="roleService.getItem(value); this.sidenav.sidenav.open()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-template>
+
+    </td-data-table>
+
+  </ng-container>
+
+  <ng-container *ngIf="!roleService.items.length">
+    <div layout="column"
+         layout-align="center center"
+         class="tc-grey-500 mat-typography pad-lg">
+      <mat-icon matListAvatar
+                class="text-super push-bottom">people
+      </mat-icon>
+      <h2>No hay roles disponibles</h2>
+    </div>
+  </ng-container>
+
+
+  <td-paging-bar #pagingBar
+                 *ngIf="roleService.items.length"
+                 [pageSize]="roleService.perPage"
+                 [total]="roleService.apiMeta.total"
+                 (change)="roleService.getItems($event.page)">
+    <button mat-mini-fab
+            color="primary"
+            (click)="roleService.model = {id: 0}; router.navigateByUrl('/admin/roles/0'); sidenav.sidenav.open()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span flex></span>
+    <span hide-xs>Por página:</span>
+    <mat-select hide-xs
+                [style.width.px]="50"
+                [(ngModel)]="roleService.perPage">
+      <mat-option *ngFor="let size of [20, 50, 100]"
+                  (onSelectionChange)="roleService.setPerPage($event); roleService.getItems()"
+                  [value]="size">
+        {{ size }}
+      </mat-option>
+    </mat-select>
+    {{ pagingBar.range }}
+    <span hide-xs>of {{ pagingBar.total }}</span>
+  </td-paging-bar>
+
+</mat-sidenav-container>

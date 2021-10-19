@@ -1,0 +1,7 @@
+:host {
+  ::ng-deep {
+    mat-sidenav-content {
+      overflow-x: hidden;
+    }
+  }
+}

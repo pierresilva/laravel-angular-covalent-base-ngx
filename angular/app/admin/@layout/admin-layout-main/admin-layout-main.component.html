@@ -1,0 +1,51 @@
+<td-layout-manage-list #manageList
+                       class="layout-main"
+                       [opened]="!!(layoutService.media.registerQuery('gt-sm') | async)"
+                       [mode]="(layoutService.media.registerQuery('gt-sm') | async) ? 'side' :  'over'">
+
+  <!--<mat-toolbar td-sidenav-content>
+    Nav Title
+  </mat-toolbar>-->
+
+  <div td-sidenav-content style="overflow-x: hidden;">
+    <app-admin-menu-main></app-admin-menu-main>
+  </div>
+
+  <mat-toolbar>
+
+    <button mat-icon-button
+            *ngIf="!layoutService.isMobile"
+            [tdLayoutManageListToggle]="true">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            *ngIf="layoutService.isMobile"
+            [hideWhenOpened]="true"
+            [tdLayoutManageListToggle]="true">
+      <mat-icon >east</mat-icon>
+    </button>
+
+    <h3 style="font-weight: bold;">Administración</h3>
+
+    <span flex></span>
+
+    <!--<button matTooltip="Dashboard Settings"
+            matTooltipPosition="before"
+            type="button"
+            mat-icon-button
+            (click)="sidenav.toggle()">
+      <mat-icon>settings</mat-icon>
+    </button>-->
+
+  </mat-toolbar>
+
+  <div tdMediaToggle="gt-xs"
+       class="layout-main-content"
+       style="">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</td-layout-manage-list>

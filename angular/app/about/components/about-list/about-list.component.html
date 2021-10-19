@@ -1,0 +1,218 @@
+<mat-toolbar>
+
+  <button mat-icon-button
+          [hideWhenOpened]="true"
+          [tdLayoutManageListToggle]="true">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+
+  <ng-container *ngIf="!isMobile">
+      <span *ngIf="!searchBox.searchVisible"
+            class="push-left-sm">
+        <span class="mat-title">Books</span>
+      </span>
+
+    <td-search-box #searchBox
+                   backIcon="close"
+                   class="push-right-sm"
+                   placeholder="Search here"
+                   (close)="bookService.searchTerm(null); bookService.getItems()"
+                   (searchDebounce)="bookService.setSearchTerm($event); bookService.getItems()"
+                   flex>
+    </td-search-box>
+  </ng-container>
+  <ng-container *ngIf="isMobile">
+    <span flex></span>
+  </ng-container>
+
+  <span>
+
+      <button mat-mini-fab
+              (click)="sidenav.toggle()"
+              color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button mat-mini-fab
+              [disabled]="!(bookService.selectedItems.length)"
+              (click)="bookService.deleteMultiple()"
+              color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </span>
+
+</mat-toolbar>
+
+<mat-sidenav-container flex>
+
+  <mat-sidenav #sidenav
+               position="start"
+               [disableClose]="true"
+               [ngStyle]="{
+                    position: 'fixed',
+                    height: isMobile ? 'calc(100vh - 154px)' : 'calc(100vh - 170px)',
+                    width: isMobile ? '100vw' : '480px',
+                    marginTop:  isMobile ? '112px' : '128px',
+                    boxShadow: isMobile ? 'none' : 'none'
+                 }">
+    <div layout="column"
+         layout-fill>
+      <mat-toolbar>
+        <button mat-icon-button
+                (click)="sidenav.toggle()">
+          <mat-icon>close</mat-icon>
+        </button>
+        Settings
+      </mat-toolbar>
+      <div flex
+           class="mat-content">
+        <div style="height: 1600px;">
+          <app-about-form></app-about-form>
+        </div>
+      </div>
+    </div>
+
+  </mat-sidenav>
+
+  <ng-container *ngIf="!bookService.items.length">
+
+    <div layout="column"
+         layout-align="center center"
+         class="tc-grey-500 mat-typography pad-lg">
+      <mat-icon matListAvatar
+                class="text-super push-bottom">menu_book
+      </mat-icon>
+      <h2>No books available</h2>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="bookService.items.length">
+    <div *tdLoading="'overlayStarSyntax'">
+
+      <!--<table td-data-table>-->
+      <td-data-table #dataTable
+                     [data]="bookService.items"
+                     [columns]="bookService.columns"
+                     [selectable]="true"
+                     [clickable]="false"
+                     [multiple]="true"
+                     [sortable]="true"
+                     [sortBy]="'id'"
+                     [resizableColumns]="false"
+                     [(ngModel)]="bookService.selectedItems"
+                     [sortOrder]="bookService.sortOrder"
+                     (sortChange)="bookService.setSortBy($event); bookService.getItems()"
+                     (rowClick)="null">
+
+        <!--<thead>
+          <tr td-data-table-column-row>
+            <th td-data-table-column
+              [name]="'title'"
+              [sortable]="true"
+              [active]="bookService.sortBy === 'title'"
+              (sortChange)="bookService.setSortBy($event); bookService.getItems()"
+              [sortOrder]="bookService.sortOrder">
+              Title
+            </th>
+            <th td-data-table-column
+              [name]="'published_at'"
+              [sortable]="true"
+              [active]="bookService.sortBy === 'published_at'"
+              (sortChange)="bookService.setSortBy($event); bookService.getItems()"
+              [sortOrder]="bookService.sortOrder">
+              PublishedAt
+            </th>
+            <th td-data-table-column [name]="'authors'">Authors</th>
+            <th td-data-table-column [name]="'id'"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr td-data-table-row *ngFor="let item of bookService.items; let last = last">
+            <td td-data-table-cell>{{ item.title }}</td>
+            <td td-data-table-cell>{{ item.published_at }}</td>
+            <td td-data-table-cell>
+              <ng-container *ngFor="let author of  item.authors">{{author.name}}<ng-container *ngIf="!last">, </ng-container></ng-container>
+            </td>
+            <td td-data-table-cell></td>
+          </tr>
+        </tbody>-->
+
+        <ng-template tdDataTableTemplate="title"
+                     let-index="index"
+                     let-value="value">
+          <span class="truncate-tex">{{value}}</span>
+        </ng-template>
+
+        <ng-template tdDataTableTemplate="authors"
+                     let-index="index"
+                     let-value="value">
+            <span class="truncate-tex">
+              <ng-container *ngFor="let author of value; let last = last">{{author?.name}}
+                <ng-container *ngIf="!last">, </ng-container></ng-container>
+            </span>
+        </ng-template>
+
+        <ng-template tdDataTableTemplate="tags"
+                     let-index="index"
+                     let-value="value">
+          <span class="truncate-tex">
+            <ng-container *ngFor="let tag of value; let last = last">{{tag?.name}}
+              <ng-container *ngIf="!last">, </ng-container></ng-container>
+          </span>
+        </ng-template>
+
+        <ng-template tdDataTableTemplate="genre"
+                     let-index="index"
+                     let-value="value">
+          <span class="truncate-tex">{{value?.name}}</span>
+        </ng-template>
+
+        <ng-template tdDataTableTemplate="published_at"
+                     let-index="index"
+                     let-value="value">
+          <span class="truncate-tex">{{value | date}}</span>
+        </ng-template>
+
+        <ng-template tdDataTableTemplate="id"
+                     let-value="value">
+          <button mat-icon-button
+                  (click)="sidenav.toggle()">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="bookService.delete(value)"
+                  mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-template>
+        <!--</table>-->
+
+      </td-data-table>
+    </div>
+
+  </ng-container>
+
+</mat-sidenav-container>
+
+<td-layout-footer-inner style="height: 64px;">
+
+  <td-paging-bar #pagingBar
+                 *ngIf="bookService.items.length"
+                 [pageSize]="bookService.perPage"
+                 [total]="bookService.apiMeta.total"
+                 (change)="bookService.getItems($event.page)">
+    <span hide-xs>Rows per page:</span>
+    <mat-select [style.width.px]="50"
+                [(ngModel)]="bookService.perPage">
+      <mat-option *ngFor="let size of [20, 50, 100]"
+                  (onSelectionChange)="bookService.setPerPage($event); bookService.getItems()"
+                  [value]="size">
+        {{ size }}
+      </mat-option>
+    </mat-select>
+    {{ pagingBar.range }}
+    <span hide-xs>of {{ pagingBar.total }}</span>
+  </td-paging-bar>
+
+</td-layout-footer-inner>

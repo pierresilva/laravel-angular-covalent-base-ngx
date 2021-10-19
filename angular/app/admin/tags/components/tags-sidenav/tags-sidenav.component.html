@@ -1,0 +1,21 @@
+<mat-sidenav #sidenav
+             [disableClose]="true"
+             style="width: 100%;"
+             mode="over"
+             position="end">
+  <div layout="column"
+       layout-fill>
+    <mat-toolbar style="position: fixed;">
+      <button mat-icon-button
+              (click)="tagsListComponent.router.navigateByUrl('/admin/tags'); sidenav.close(); tagsListComponent.tagService.model ={id: 0}">
+        <mat-icon>close</mat-icon>
+      </button>
+      {{ tagsListComponent.tagService.model.id ? ('Edit' | translate) + ' ' + ('TAG' | translate) : ('Create' | translate) + ' ' + ('TAG' | translate) }}
+    </mat-toolbar>
+    <div flex
+         [ngStyle]="{marginTop: layoutService.isMobile ? '56px' : '64px'}"
+         class="mat-content">
+      <app-tags-form></app-tags-form>
+    </div>
+  </div>
+</mat-sidenav>

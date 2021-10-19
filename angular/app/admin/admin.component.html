@@ -1,0 +1,81 @@
+<section class="push-md">
+  <div class="push-bottom-lg pad-bottom-xs">
+
+    <div layout="row"
+         layout-wrap>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/users'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">people</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Usuarios</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Administra usuarios.' | ellipsis:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/roles'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">account_box</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Roles</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Administra roles para los usuarios.' | ellipsis:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/permissions'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'orange-600' }}">lock</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'orange-600' }}">Permisos</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Administra permisos para los usuarios.' | ellipsis:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</section>

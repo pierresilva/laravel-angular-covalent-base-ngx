@@ -1,0 +1,123 @@
+<mat-toolbar>
+
+  <button mat-icon-button
+          [hideWhenOpened]="true"
+          [tdLayoutManageListToggle]="true">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+
+  <ng-container *ngIf="!layoutService.isMobile">
+      <span class="push-left-sm">
+        <span class="mat-title">Books</span>
+      </span>
+  </ng-container>
+
+    <span flex></span>
+
+</mat-toolbar>
+
+<section class="push-md">
+  <div class="push-bottom-lg pad-bottom-xs">
+
+    <div layout="row"
+         layout-wrap>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/authors'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'green-600' }}">portrait</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'green-600' }}">Authors</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/tags'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'green-600' }}">bookmarks</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'green-600' }}">Tags</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/genres'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'green-600' }}">book</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'green-600' }}">Genres</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div flex-xs="100"
+             flex-sm="33"
+             flex-md="33"
+             flex-gt-md="25">
+          <a [routerLink]="'/admin/library/books'"
+             class="text-nodecoration push-sm block">
+            <mat-card class="component-card cursor-pointer push-none"
+                      layout="column"
+                      layout-align="space-between start">
+              <mat-icon ngClass="tc-{{ 'green-600' }}">menu_book</mat-icon>
+              <div>
+                <div class="push-bottom-xs">
+                  <span class="mat-subheading-2" ngClass="tc-{{ 'green-600' }}">Books</span>
+                </div>
+                <div class="mat-caption component-card-body">
+                  {{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam esse est expedita ipsum itaque obcaecati perspiciatis, quia repellat similique tempora tempore totam ut, voluptatem! Aliquam aperiam aut nemo quidem temporibus.' | truncate:100 }}
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</section>

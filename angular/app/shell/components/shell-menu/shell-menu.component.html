@@ -1,0 +1,60 @@
+<a mat-list-item
+   routerLink="/"
+   [routerLinkActive]="'active'"
+   [routerLinkActiveOptions]="{exact: true}"
+   [tdLayoutToggle]="(shellService.media.registerQuery('gt-sm') | async) ? false : true">
+  <mat-icon [ngStyle]="{'font-size': shellService.miniNav ? '2rem' : '1.5rem' }"
+            [matTooltip]="'Home'"
+            matTooltipPosition="after">home
+  </mat-icon>
+
+  <span *ngIf="!shellService.miniNav">Home</span>
+</a>
+<a mat-list-item
+   routerLink="/about"
+   [routerLinkActive]="'active'"
+   [tdLayoutToggle]="(shellService.media.registerQuery('gt-sm') | async) ? false : true">
+  <mat-icon [ngStyle]="{'font-size': shellService.miniNav ? '2rem' : '1.5rem' }"
+            [matTooltip]="'About'"
+            matTooltipPosition="after">info
+  </mat-icon>
+  <span *ngIf="!shellService.miniNav">About</span>
+</a>
+<a mat-list-item
+   routerLink="/admin/library"
+   [routerLinkActive]="'active'"
+   [tdLayoutToggle]="(shellService.media.registerQuery('gt-sm') | async) ? false : true">
+  <mat-icon [ngStyle]="{'font-size': shellService.miniNav ? '2rem' : '1.5rem' }"
+            [matTooltip]="'Admin Library'"
+            matTooltipPosition="after">local_library
+  </mat-icon>
+  <span *ngIf="!shellService.miniNav">Admin Library</span>
+</a>
+<a mat-list-item
+   routerLink="/covalent"
+   [routerLinkActive]="'active'"
+   [tdLayoutToggle]="(shellService.media.registerQuery('gt-sm') | async) ? false : true">
+  <mat-icon [ngStyle]="{'font-size': shellService.miniNav ? '2rem' : '1.5rem' }"
+            [matTooltip]="'Covalent Library'"
+            matTooltipPosition="after">local_library
+  </mat-icon>
+  <span *ngIf="!shellService.miniNav">Covalent Library</span>
+</a>
+<a mat-list-item
+   routerLink="/admin"
+   [routerLinkActive]="'active'"
+   [tdLayoutToggle]="(shellService.media.registerQuery('gt-sm') | async) ? false : true">
+  <mat-icon [ngStyle]="{'font-size': shellService.miniNav ? '2rem' : '1.5rem' }"
+            [matTooltip]="'Administración'"
+            matTooltipPosition="after">admin_panel_settings
+  </mat-icon>
+  <span *ngIf="!shellService.miniNav">Administración</span>
+</a>
+<a mat-list-item
+   [tdLayoutToggle]="true">
+  <mat-icon [ngStyle]="{'font-size': shellService.miniNav ? '2rem' : '1.5rem' }"
+            [matTooltip]="'Close Menu'"
+            matTooltipPosition="after">close
+  </mat-icon>
+  <span *ngIf="!shellService.miniNav">Close Menu</span>
+</a>

@@ -1,0 +1,11 @@
+<h5 mat-dialog-title>{{data.title}}</h5>
+
+<mat-dialog-content>
+  <td-json-formatter [data]="data.json" [levelsOpen]="2"></td-json-formatter>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-button
+          (click)="onNoClick()">OK
+  </button>
+</div>

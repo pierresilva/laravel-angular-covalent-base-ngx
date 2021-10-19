@@ -1,0 +1,184 @@
+<div flex
+     class="pad">
+
+  <form #booksForm="ngForm"
+        (ngSubmit)="bookService.save()"
+        novalidate>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label><span translate>TITLE</span></mat-label>
+      <input matInput
+             type="text"
+             name="title"
+             id="title"
+             [placeholder]="('Enter' | translate) + ' ' + ('TITLE' | translate)"
+             #title="ngModel"
+             [(ngModel)]="bookService.model.title"
+             required>
+      <mat-error class="error"
+                 *ngIf="title.hasError('required')"><span translate>This field is required</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;"
+                  appearance="outline">
+        <mat-label><span translate>COVER</span></mat-label>
+            <img matPrefix
+                 style="max-height: 32px; max-width: 32px; margin-right: 0.5rem;"
+                 *ngIf="bookService.model.cover"
+                 [src]="bookService.model.cover">
+            <input matInput
+                   type="text"
+                   [name]="'cover'"
+                   [id]="'cover'"
+                   [placeholder]="'COVER' | translate"
+                   #cover="ngModel"
+                   [(ngModel)]="bookService.model.cover"
+                   >
+            <td-file-input matSuffix
+                           [name]="'cover_file'"
+                           [(ngModel)]="files"
+                           color="primary"
+                           (select)="selectCoverEvent($event)"
+                           accept=".jpg,.png"
+                           [disabled]="disabled"
+                           [multiple]="false">
+              <mat-icon>attach_file</mat-icon>
+            </td-file-input>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;"
+                      appearance="outline">
+        <mat-label><span translate>PUBLISHED_AT</span></mat-label>
+        <input matInput
+               type="date"
+               [name]="'published_at'"
+               [id]="'published_at'"
+               [placeholder]="('Enter' | translate) + ' ' + ('PUBLISHED_AT' | translate)"
+               #published_at="ngModel"
+               [(ngModel)]="bookService.model.published_at"
+               >
+      </mat-form-field>
+    <mat-form-field style="width: 100%;"
+                      appearance="outline">
+        <mat-label><span translate>BOUGHT_AT</span></mat-label>
+        <input matInput
+               type="datetime-local"
+               name="bought_at"
+               id="bought_at"
+               [placeholder]="('Enter' | translate) + ' ' + ('BOUGHT_AT' | translate)"
+               #bought_at="ngModel"
+               [(ngModel)]="bookService.model.bought_at"
+               >
+      </mat-form-field>
+        <h4 style="margin-top: 0; margin-bottom: 0.5rem;"><span translate>RESUME</span></h4>
+        <div class="NgxEditor__Wrapper"
+             style="margin-bottom: 1rem;">
+          <ngx-editor-menu [editor]="editor_resume"></ngx-editor-menu>
+          <ngx-editor [name]="'resume'"
+                      [id]="'resume'"
+                      [editor]="editor_resume"
+                      #resume="ngModel"
+                      [(ngModel)]="bookService.model.resume"
+                      [disabled]="false"
+                      [placeholder]="('Enter' | translate) + ' ' + ('RESUME' | translate)"></ngx-editor>
+        </div>
+    <input type="hidden"
+           name="genre_id"
+           id="genre_id"
+           #genre_id="ngModel"
+           [(ngModel)]="bookService.model.genre_id"
+           required>
+    <!-- <mat-error class="error"
+               *ngIf="genre_id.invalid">
+      <span translate>Assign one</span> <span translate>GENRE</span>
+    </mat-error> -->
+    <app-belongs-to-input [label]="('GENRE' | translate)"
+                          [required]="true"
+                          (selectOut)="setGenre($event)"
+                          (selectIdOut)="setGenreId($event)"
+                          [searchInputLabel]="('Add' | translate) + ' ' + ('GENRE'| translate)"
+                          [searchInputPlaceholder]="('Search' | translate) + ' ' + ('GENRE' | translate)"
+                          [selected]="bookService.model.genre ? bookService.model.genre : null"
+                          [selectedId]="bookService.model.genre_id ? bookService.model.genre_id : null"
+                          [searchUrl]="'api/genres'"
+                          [searchDisplayColumns]="['name']"
+                          [searchColumns]="['name']"
+                          [notFoundUrl]="'/admin/genres/0'"
+                          [notFoundButtonText]="('Create' | translate) + ' ' + ('GENRE' | translate)"
+                          [notFoundMessage]="('No results found for' | translate) + ' ' + ('GENRE' | translate)"></app-belongs-to-input>
+    <input type="hidden"
+           name="tag_ids"
+           id="tag_ids"
+           #tag_ids="ngModel"
+           [(ngModel)]="bookService.model.tag_ids"
+           [required]="!bookService.model.tag_ids?.length"
+>
+    <!-- <mat-error class="error"
+               *ngIf="tag_ids.invalid">
+               <span translate>Assign at least one</span> <span translate>TAG</span>
+    </mat-error> -->
+    <app-belongs-to-many-input [label]="('TAGS' | translate)"
+                               [min]="1"
+                               [required]="true"
+                               (selectOut)="setTags($event)"
+                               (selectIdsOut)="setTagIds($event)"
+                               [searchInputLabel]="('Add' | translate) + ' ' + ('TAG'| translate)"
+                               [searchInputPlaceholder]="('Search' | translate) + ' ' + ('TAG' | translate)"
+                               [selected]="bookService.model.tags ?? []"
+                               [selectedIds]="bookService.model.tag_ids ?? []"
+                               [searchUrl]="'api/tags'"
+                               [searchDisplayColumns]="['name']"
+                               [searchColumns]="['name']"
+                               [notFoundUrl]="'/admin/tags/0'"
+                               [notFoundButtonText]="('Create' | translate) + ' ' + ('TAG' | translate)"
+                               [notFoundMessage]="('No results found for' | translate) + ' ' + ('TAG' | translate)"></app-belongs-to-many-input>
+    <input type="hidden"
+           name="author_ids"
+           id="author_ids"
+           #author_ids="ngModel"
+           [(ngModel)]="bookService.model.author_ids"
+           [required]="!bookService.model.author_ids?.length"
+>
+    <!-- <mat-error class="error"
+               *ngIf="author_ids.invalid">
+               <span translate>Assign at least one</span> <span translate>AUTHOR</span>
+    </mat-error> -->
+    <app-belongs-to-many-input [label]="('AUTHORS' | translate)"
+                               [min]="1"
+                               [required]="true"
+                               (selectOut)="setAuthors($event)"
+                               (selectIdsOut)="setAuthorIds($event)"
+                               [searchInputLabel]="('Add' | translate) + ' ' + ('AUTHOR'| translate)"
+                               [searchInputPlaceholder]="('Search' | translate) + ' ' + ('AUTHOR' | translate)"
+                               [selected]="bookService.model.authors ?? []"
+                               [selectedIds]="bookService.model.author_ids ?? []"
+                               [searchUrl]="'api/authors'"
+                               [searchDisplayColumns]="['name']"
+                               [searchColumns]="['name']"
+                               [notFoundUrl]="'/admin/authors/0'"
+                               [notFoundButtonText]="('Create' | translate) + ' ' + ('AUTHOR' | translate)"
+                               [notFoundMessage]="('No results found for' | translate) + ' ' + ('AUTHOR' | translate)"></app-belongs-to-many-input>
+  </form>
+
+  <div class="pad-top-lg">
+    <button mat-raised-button
+            color="success"
+            [disabled]="booksForm.invalid"
+            (click)="bookService.save()"
+            class="text-upper"><span translate>Save</span>
+    </button>
+    <button mat-button
+            (click)="bookService.setItem({}); booksListComponent.router.navigateByUrl('/admin/books'); booksListComponent.sidenav.sidenav.close()"
+            color="warn"
+            class="text-upper"><span translate>Cancel</span>
+    </button>
+  </div>
+
+
+</div>
+
+<div>
+  <pre *ngIf="!environment.production">
+{{bookService.model | json}}
+  </pre>
+</div>

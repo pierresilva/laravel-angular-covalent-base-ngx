@@ -1,0 +1,24 @@
+<mat-sidenav #sidenav
+             [disableClose]="true"
+             style="width: 100%;"
+             mode="over"
+             position="end">
+  <div layout="column"
+       layout-fill>
+    <mat-toolbar style="position: fixed;">
+      <button mat-icon-button
+              (click)="permissionsListComponent.router.navigateByUrl('/admin/permissions'); sidenav.close(); permissionsListComponent.permissionService.model ={id: 0}">
+        <mat-icon>close</mat-icon>
+      </button>
+      {{permissionsListComponent.permissionService.model.id ? 'Editar permiso' : 'Crear permiso'}}
+    </mat-toolbar>
+    <div flex
+         [ngStyle]="{marginTop: layoutService.isMobile ? '56px' : '64px'}"
+         class="mat-content">
+      <app-permissions-form></app-permissions-form>
+      <!--<pre style="width: 100%;">
+{{authorsListComponent.authorService.model | json}}
+      </pre>-->
+    </div>
+  </div>
+</mat-sidenav>

@@ -1,0 +1,104 @@
+<!-- Shell layout -->
+<td-layout #tdLayout
+           class="layout-management-list-demo"
+           [opened]="!!(shellService.media.registerQuery('gt-sm') | async)"
+           [mode]="(shellService.media.registerQuery('gt-sm') | async) ? 'side' :  'over'"
+           [sidenavWidth]="!shellService.miniNav ? '257px' : '64px'">
+  <td-navigation-drawer flex>
+
+    <td-layout-footer style="position: absolute; bottom: 0; width: 100%;">
+
+      <button type="button"
+              style="background: #cccccc; margin-left: -6px;"
+              mat-icon-button
+              (click)="shellService.toggleMiniNav()">
+        <mat-icon [@tdRotate]="shellService.miniNav">keyboard_arrow_left</mat-icon>
+      </button>
+      <span *ngIf="!shellService.miniNav"
+            class="mat-caption">&copy; {{shellService.year}} NEXTGY.</span>
+
+    </td-layout-footer>
+
+    <!-- Shell menu (main menu) -->
+    <mat-nav-list>
+      <app-shell-menu></app-shell-menu>
+    </mat-nav-list>
+
+    <!-- Shell menu (user menu) -->
+    <div td-navigation-drawer-menu>
+
+      <app-shell-menu-drawer></app-shell-menu-drawer>
+
+    </div>
+
+  </td-navigation-drawer>
+
+  <!-- Shell toolbar -->
+  <td-layout-nav>
+
+    <button mat-icon-button
+            td-menu-button
+            [tdLayoutToggle]="true">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div td-toolbar-content
+         layout="row"
+         layout-align="start center"
+         flex>
+
+      <img src="assets/images/logos/logo-white.svg"
+           style="max-height: 24px;">
+
+      <span flex></span>
+
+      <app-shell-notifications></app-shell-notifications>
+
+
+      <!-- Theme selector -->
+      <span>
+        <button mat-icon-button
+                *ngIf="activeTheme === 'theme-dark'"
+                (click)="theme('theme-light')">
+          <mat-icon>brightness_high</mat-icon>
+        </button>
+        <button mat-icon-button
+                *ngIf="activeTheme === 'theme-light'"
+                (click)="theme('theme-dark')">
+          <mat-icon>brightness_low</mat-icon>
+        </button>
+      </span>
+
+      <!--User -->
+      <span>
+        <button mat-icon-button
+                [matTooltip]="storage.get('credentials').email"
+                (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </span>
+    </div>
+
+    <!-- Shell main content -->
+    <router-outlet></router-outlet>
+
+    <!--<td-layout-footer color="primary">
+
+      <div layout="row"
+           layout-align="center center"
+           flex>
+        <div class="text-left">
+          © 2021 - NEXTGY CO.
+        </div>
+
+        <div flex></div>
+
+        <div class="text-right">
+          HECHO CON <span>&#10084;</span>
+        </div>
+      </div>
+
+    </td-layout-footer>-->
+
+  </td-layout-nav>
+</td-layout>

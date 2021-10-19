@@ -1,0 +1,18 @@
+<td-layout-manage-list [opened]="!layoutService.isMobile"
+                       [sidenavWidth]="layoutService.isMobile ? '100vw' : '280px'"
+                       [mode]="layoutService.isMobile ? 'push' : 'side'">
+
+  <mat-toolbar td-sidenav-content>
+    <button mat-icon-button
+            [tdLayoutManageListToggle]="true">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span style="margin-left: 1rem;">Menu</span>
+  </mat-toolbar>
+
+  <mat-nav-list td-sidenav-content>
+    <app-module-menu></app-module-menu>
+  </mat-nav-list>
+
+<router-outlet></router-outlet>
+</td-layout-manage-list>

@@ -1,0 +1,134 @@
+<div flex
+     class="pad">
+
+  <mat-form-field style="width: 100%;"
+                  appearance="outline">
+    <mat-label>Título</mat-label>
+    <input matInput
+           type="text"
+           placeholder="Título del libro"
+           #title="ngModel"
+           [(ngModel)]="authorService.model.title"
+           required>
+    <mat-hint class="error"
+              *ngIf="title.hasError('required')">El campo es requerido
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;"
+                  appearance="outline">
+    <mat-label>Código</mat-label>
+    <input matInput
+           type="text"
+           placeholder="Código del libro"
+           #code="ngModel"
+           [(ngModel)]="authorService.model.code"
+           [readonly]="true">
+  </mat-form-field>
+
+  <h4 style="margin-top: 0; margin-bottom: 0.5rem;">Resúmen</h4>
+  <div class="NgxEditor__Wrapper"
+       style="margin-bottom: 1rem;">
+    <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+    <ngx-editor [editor]="editor"
+                #resume="ngModel"
+                [(ngModel)]="authorService.model.resume"
+                [disabled]="false"
+                required
+                [placeholder]="'Type here...'"></ngx-editor>
+  </div>
+
+  <mat-form-field style="width: 100%;"
+                  appearance="outline">
+    <mat-label>Cubierta</mat-label>
+    <img matPrefix
+         style="max-height: 32px; max-width: 32px; margin-right: 0.5rem;"
+         *ngIf="authorService.model.cover"
+         [src]="authorService.model.cover">
+    <input matInput
+           type="text"
+           placeholder="Imágen para la cubierta del libro"
+           #cover="ngModel"
+           [(ngModel)]="authorService.model.cover"
+           required>
+    <td-file-input matSuffix
+                   [(ngModel)]="files"
+                   color="primary"
+                   (select)="selectEvent($event)"
+                   accept=".jpg,.png"
+                   [disabled]="disabled"
+                   [multiple]="false">
+      <mat-icon>attach_file</mat-icon>
+    </td-file-input>
+    <mat-hint class="error"
+              *ngIf="cover.hasError('required')">El campo es requerido
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;"
+                  appearance="outline">
+    <mat-label>Publicado en</mat-label>
+    <input matInput
+           type="date"
+           #published_at="ngModel"
+           [(ngModel)]="authorService.model.published_at"
+           required>
+    <mat-hint class="error"
+              *ngIf="published_at.hasError('required')">El campo es requerido
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Comprado en</mat-label>
+    <input matInput
+           type="datetime-local"
+           [(ngModel)]="authorService.model.bought_at"
+           placeholder="Seleccione una fecha"
+           [disabled]="false">
+  </mat-form-field>
+  <div>{{authorService.model.bought_at}}</div>
+
+  <app-belongs-to-many-input [label]="'Genero'"
+                             [min]="1"
+                             [max]="1"
+                             [required]="true"
+                             [searchInputLabel]="'Agregar Genero'"
+                             [searchInputPlaceholder]="'Busca el nombre del genero'"
+                             [selected]="authorService.model.genre ? [authorService.model.genre] : []"
+                             [selectedIds]="authorService.model.genre ? [authorService.model.genre.id] : []"
+                             [searchUrl]="'api/genres'"
+                             [searchDisplayColumns]="['name']"
+                             [searchColumns]="['name']"
+                             [notFoundUrl]="'/covalent/genres/0'"
+                             [notFoundButtonText]="'Crear genero'"
+                             [notFoundMessage]="'No se encontraron generos'"></app-belongs-to-many-input>
+
+  <app-belongs-to-many-input (selectOut)="setAuthors($event)"
+                             (selectIdsOut)="setAuthorIds($event)"
+                             [label]="'Autores'"
+                             [searchInputLabel]="'Agregar Autores'"
+                             [searchInputPlaceholder]="'Busca el nombre o la fecha de nacimiento el autor'"
+                             [selected]="authorService.model.authors ?? []"
+                             [selectedIds]="authorService.model.author_ids ?? []"
+                             [searchUrl]="'api/authors'"
+                             [searchDisplayColumns]="['name']"
+                             [searchColumns]="['name', 'birth_date']"
+                             [notFoundUrl]="'/covalent/authors/0'"
+                             [notFoundButtonText]="'Crear autor'"
+                             [notFoundMessage]="'No se encontraron autores'"></app-belongs-to-many-input>
+
+  <app-belongs-to-many-input (selectOut)="setAuthors($event)"
+                             (selectIdsOut)="setAuthorIds($event)"
+                             [label]="'Etiquetas'"
+                             [searchInputLabel]="'Agregar etiquetas'"
+                             [searchInputPlaceholder]="'Busca el nombre de la etiqueta'"
+                             [selected]="authorService.model.tags"
+                             [selectedIds]="authorService.model.tag_ids"
+                             [searchUrl]="'api/tags'"
+                             [searchDisplayColumns]="['name']"
+                             [searchColumns]="['name']"
+                             [notFoundUrl]="'/covalent/tags/0'"
+                             [notFoundButtonText]="'Crear etiqueta'"
+                             [notFoundMessage]="'No se encontraron etiquetas'"></app-belongs-to-many-input>
+
+</div>

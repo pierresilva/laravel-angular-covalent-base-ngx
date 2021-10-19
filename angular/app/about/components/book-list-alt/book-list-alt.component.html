@@ -1,0 +1,241 @@
+<mat-toolbar class="component-toolbar">
+
+  <button mat-icon-button
+          [hideWhenOpened]="true"
+          [tdLayoutManageListToggle]="true">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+
+  <ng-container *ngIf="!isMobile">
+      <span *ngIf="!searchBox.searchVisible"
+            class="push-left-sm">
+        <span class="mat-title">Books</span>
+      </span>
+
+    <td-search-box #searchBox
+                   backIcon="close"
+                   class="push-right-sm"
+                   placeholder="Search here"
+                   (close)="bookService.searchTerm(null); bookService.getItems()"
+                   (searchDebounce)="bookService.setSearchTerm($event); bookService.getItems()"
+                   flex>
+    </td-search-box>
+  </ng-container>
+  <ng-container *ngIf="isMobile">
+    <span flex></span>
+  </ng-container>
+
+  <span>
+
+      <button mat-mini-fab
+              (click)="sidenav.toggle()"
+              color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button mat-mini-fab
+              [disabled]="!(bookService.selectedItems.length)"
+              (click)="bookService.deleteMultiple()"
+              color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </span>
+</mat-toolbar>
+
+<mat-sidenav-container flex>
+
+  <mat-sidenav #sidenav
+               position="start"
+               [disableClose]="true"
+               [ngStyle]="{
+                    position: 'fixed',
+                    height: isMobile ? 'calc(100vh - 154px)' : 'calc(100vh - 170px)',
+                    width: isMobile ? '100vw' : '480px',
+                    marginTop:  isMobile ? '112px' : '128px',
+                    boxShadow: isMobile ? 'none' : 'none'
+                 }">
+    <div layout="column"
+         layout-fill>
+      <mat-toolbar>
+        <button mat-icon-button
+                (click)="sidenav.toggle()">
+          <mat-icon>close</mat-icon>
+        </button>
+        Settings
+      </mat-toolbar>
+      <div flex
+           class="mat-content">
+        <div style="height: 1600px;">
+          <app-about-form></app-about-form>
+        </div>
+      </div>
+    </div>
+
+  </mat-sidenav>
+
+  <div class="example-table-container">
+
+    <table mat-table
+           [dataSource]="data"
+           class="example-table"
+           matSort
+           matSortActive="id"
+           matSortDisableClear
+           multiTemplateDataRows
+           matSortDirection="desc">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th style="width: 60px;"
+            mat-header-cell
+            *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td style="width: 60px;"
+            mat-cell
+            *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th style="width: 60px;"
+            mat-header-cell
+            mat-sort-header
+            disableClear
+            *matHeaderCellDef>ID
+        </th>
+        <td style="width: 60px;"
+            mat-cell
+            *matCellDef="let row">{{row.id}}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell
+            mat-sort-header
+            disableClear
+            *matHeaderCellDef>Title
+        </th>
+        <td mat-cell
+            *matCellDef="let row">{{row.title}}</td>
+      </ng-container>
+
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell
+            *matCellDef="let item"
+            [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail"
+               [@detailExpand]="item === expandedElement ? 'expanded' : 'collapsed'">
+
+            <mat-list style="width: 100%;">
+
+              <mat-list-item>
+                <div mat-line>{{item.title}}</div>
+                <p matLine>Title</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line>{{item.code}}</div>
+                <p matLine>Code</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line>
+                  <span class="multiple-item"
+                        *ngFor="let author of item.authors">{{author.name}}</span>
+                </div>
+                <p matLine>Authors</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line>{{item.genre.name}}</div>
+                <p matLine>Genre</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line>
+                  <span class="multiple-item"
+                        *ngFor="let tag of item.tags">{{tag.name}}</span>
+                </div>
+                <p matLine>Tags</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line> {{item.published_at | date}} </div>
+                <p matLine>Published At</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <img matListAvatar
+                     [src]="item.cover">
+                <div mat-line><a [href]="item.cover"
+                                 target="_blank">{{item.cover}}</a></div>
+                <p matLine>Cover</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line> {{item.created_at | date}} </div>
+                <p matLine>Created At</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+
+              <mat-list-item>
+                <div mat-line> {{item.updated_at | date}} </div>
+                <p matLine>Updated At</p>
+              </mat-list-item>
+
+
+            </mat-list>
+
+
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+      <tr mat-row
+          *matRowDef="let row; columns: displayedColumns;"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === row"
+          (click)="expandedElement = expandedElement === row ? null : row">
+      </tr>
+
+      <tr mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"></tr>
+
+    </table>
+  </div>
+
+  <mat-paginator [length]="resultsLength"
+                 [pageSize]="20"></mat-paginator>
+
+
+</mat-sidenav-container>
+
+
+
+
+

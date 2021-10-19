@@ -1,0 +1,34 @@
+<mat-nav-list>
+
+  <a mat-list-item
+     [routerLink]="'/'"
+     [tdLayoutToggle]="(layoutService.media.registerQuery('gt-sm') | async) ? true : false">
+    <mat-icon mat-list-icon
+              [matTooltip]="'Home'"
+              matTooltipPosition="after">home
+    </mat-icon>
+    <span *ngIf="!layoutService.miniNav">Home</span>
+  </a>
+  <ng-template let-item
+               let-index="index"
+               let-last="last"
+               ngFor
+               [ngForOf]="[0, 1, 2, 3]">
+    <a mat-list-item
+       [tdLayoutToggle]="(layoutService.media.registerQuery('gt-sm') | async) ? false : true">
+      <mat-icon [matTooltip]="'Dashboard ' + index"
+                matTooltipPosition="after">dashboard
+      </mat-icon>
+      <span *ngIf="!layoutService.miniNav">Dashboard {{index}}</span>
+    </a>
+  </ng-template>
+
+  <a mat-list-item
+     [tdLayoutToggle]="true">
+    <mat-icon matListIcon
+              [matTooltip]="'Close Drawer'"
+              matTooltipPosition="after">close
+    </mat-icon>
+    <span *ngIf="!layoutService.miniNav">Close Drawer</span>
+  </a>
+</mat-nav-list>

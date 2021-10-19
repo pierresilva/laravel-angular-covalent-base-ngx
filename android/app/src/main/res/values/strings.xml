@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ngxcovalent</string>
+    <string name="title_activity_main">ngxcovalent</string>
+    <string name="package_name">com.ngxcovalent.app</string>
+    <string name="custom_url_scheme">com.ngxcovalent.app</string>
+</resources>

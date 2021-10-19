@@ -1,0 +1,70 @@
+<div flex
+     class="pad">
+
+  <form #genresForm="ngForm"
+        (ngSubmit)="genreService.save()"
+        novalidate>
+
+    <mat-form-field style="width: 100%;"
+                    appearance="outline">
+      <mat-label><span translate>NAME</span></mat-label>
+      <input matInput
+             type="text"
+             name="name"
+             id="name"
+             [placeholder]="('Enter' | translate) + ' ' + ('NAME' | translate)"
+             #name="ngModel"
+             [(ngModel)]="genreService.model.name"
+             required>
+      <mat-error class="error"
+                 *ngIf="name.hasError('required')"><span translate>This field is required</span>
+      </mat-error>
+    </mat-form-field>
+    <input type="hidden"
+           name="book_ids"
+           id="book_ids"
+           #book_ids="ngModel"
+           [(ngModel)]="genreService.model.book_ids"
+    >
+
+    <!-- <mat-error class="error"
+               *ngIf="book_ids.invalid">
+               <span translate>Assign at least one</span> <span translate>BOOK</span>
+    </mat-error> -->
+    <app-belongs-to-many-input [label]="('BOOKS' | translate)"
+                               (selectOut)="setBooks($event)"
+                               (selectIdsOut)="setBookIds($event)"
+                               [searchInputLabel]="('Add' | translate) + ' ' + ('BOOK'| translate)"
+                               [searchInputPlaceholder]="('Search' | translate) + ' ' + ('BOOK' | translate)"
+                               [selected]="genreService.model.books ?? []"
+                               [selectedIds]="genreService.model.book_ids ?? []"
+                               [searchUrl]="'api/books'"
+                               [searchDisplayColumns]="['title']"
+                               [searchColumns]="['title']"
+                               [notFoundUrl]="'/admin/books/0'"
+                               [notFoundButtonText]="('Create' | translate) + ' ' + ('BOOK' | translate)"
+                               [notFoundMessage]="('No results found for' | translate) + ' ' + ('BOOK' | translate)"></app-belongs-to-many-input>
+  </form>
+
+  <div class="pad-top-lg">
+    <button mat-raised-button
+            color="success"
+            [disabled]="genresForm.invalid"
+            (click)="genreService.save()"
+            class="text-upper"><span translate>Save</span>
+    </button>
+    <button mat-button
+            (click)="genreService.setItem({}); genresListComponent.router.navigateByUrl('/admin/genres'); genresListComponent.sidenav.sidenav.close()"
+            color="warn"
+            class="text-upper"><span translate>Cancel</span>
+    </button>
+  </div>
+
+
+</div>
+
+<div>
+  <pre *ngIf="!environment.production">
+{{genreService.model | json}}
+  </pre>
+</div>

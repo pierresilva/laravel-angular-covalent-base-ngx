@@ -1,0 +1,80 @@
+<mat-nav-list [tdLayoutManageListToggle]="!layoutService.media.query('gt-sm')">
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/users'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>people
+    </mat-icon>
+    <h3 matLine> Usuarios </h3>
+    <p matLine> Inicio</p>
+  </a>
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/roles'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>account_box
+    </mat-icon>
+    <h3 matLine> Roles </h3>
+    <p matLine> Roles para usuarios</p>
+  </a>
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/permissions'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>lock
+    </mat-icon>
+    <h3 matLine> Permisos </h3>
+    <p matLine> Permisos para usuarios</p>
+  </a>
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/books'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>local_library
+    </mat-icon>
+    <h3 matLine> Books </h3>
+    <p matLine> Books administration</p>
+  </a>
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/authors'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>person
+    </mat-icon>
+    <h3 matLine> Autores </h3>
+    <p matLine> Autores administration</p>
+  </a>
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/genres'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>tag
+    </mat-icon>
+    <h3 matLine> Generos </h3>
+    <p matLine> Generos administration</p>
+  </a>
+
+  <mat-divider mat-inset></mat-divider>
+
+  <a mat-list-item
+     routerLinkActive="active"
+     [routerLink]="'/admin/tags'">
+    <mat-icon style="background: #e9e8e7a5;"
+              mat-list-icon>tags
+    </mat-icon>
+    <h3 matLine> Etiquietas </h3>
+    <p matLine> Etiquetas administration</p>
+  </a>
+
+</mat-nav-list>

@@ -1,0 +1,117 @@
+<mat-sidenav-container flex>
+
+  <app-permissions-sidenav #sidenav></app-permissions-sidenav>
+
+  <div layout="row"
+       style="min-height: 53px;"
+       layout-align="start center"
+       class="pad-left-sm pad-right-sm"
+       [class.mat-selected-title]="permissionService.selectedItems.length && permissionService.selectable">
+     <span *ngIf="!searchBox.searchVisible"
+           class="push-left-sm">
+       <span *ngIf="(permissionService.selectable && !permissionService.selectedItems.length) || !permissionService.selectable"
+             class="mat-title">Permisos</span>
+       <button mat-flat-button
+               [color]="'warn'"
+               (click)="permissionService.deleteMultiple()"
+               *ngIf="permissionService.selectedItems.length && permissionService.selectable">
+         Eliminar {{ permissionService.selectedItems.length }} item(s)
+       </button>
+     </span>
+    <td-search-box #searchBox
+                   [ngStyle]="{display: permissionService.selectedItems.length ? 'none' : 'block'}"
+                   backIcon="arrow_back"
+                   class="push-right-sm"
+                   placeholder="Buscar permisos"
+                   (close)="permissionService.setSearchTerm(null); permissionService.getItems()"
+                   (searchDebounce)="permissionService.setSearchTerm($event); permissionService.getItems()"
+                   flex></td-search-box>
+  </div>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="permissionService.items.length">
+    <td-data-table #dataTable
+                   [ngClass]="{'layout-mat-sidenav-container': !layoutService.isMobile, 'layout-mat-sidenav-container-mobile': layoutService.isMobile}"
+                   [data]="permissionService.items"
+                   [columns]="permissionService.columns"
+                   [selectable]="permissionService.selectable"
+                   [clickable]="permissionService.clickable"
+                   [multiple]="permissionService.multiple"
+                   [sortable]="true"
+                   [sortBy]="'id'"
+                   [resizableColumns]="false"
+                   [(ngModel)]="permissionService.selectedItems"
+                   [sortOrder]="permissionService.sortOrder"
+                   (sortChange)="permissionService.setSortBy($event); permissionService.getItems()"
+                   (rowClick)="null">
+
+      <ng-template tdDataTableTemplate="nombre"
+                   let-index="index"
+                   let-value="value">
+        <span matLine [title]="value">{{value}}</span>
+
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="code"
+                   let-index="index"
+                   let-value="value">
+        <span matLine [title]="value">{{value}}</span>
+
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="created_at"
+                   let-index="index"
+                   let-value="value">
+        {{value | date:'dd/MM/YYYY'}}
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="id"
+                   let-index="index"
+                   let-value="value">
+        <button mat-icon-button
+                style="margin-left: -26px;"
+                [routerLink]="'/admin/permissions/' + value"
+                (click)="permissionService.getItem(value); this.sidenav.sidenav.open()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-template>
+
+    </td-data-table>
+
+  </ng-container>
+
+  <ng-container *ngIf="!permissionService.items.length">
+    <div layout="column"
+         layout-align="center center"
+         class="tc-grey-500 mat-typography pad-lg">
+      <mat-icon matListAvatar
+                class="text-super push-bottom">people
+      </mat-icon>
+      <h2>No hay permisos disponibles</h2>
+    </div>
+  </ng-container>
+
+
+  <td-paging-bar #pagingBar
+                 *ngIf="permissionService.items.length"
+                 [pageSize]="permissionService.perPage"
+                 [total]="permissionService.apiMeta.total"
+                 (change)="permissionService.getItems($event.page)">
+    <button  mat-raised-button
+             color="primary"
+             (click)="permissionService.model = {id: 0}; router.navigateByUrl('/admin/permissions/0'); sidenav.sidenav.open()">Crear Permiso</button>
+    <span flex></span>
+    <span hide-xs>Rows per page:</span>
+    <mat-select [style.width.px]="50"
+                [(ngModel)]="permissionService.perPage">
+      <mat-option *ngFor="let size of [20, 50, 100]"
+                  (onSelectionChange)="permissionService.setPerPage($event); permissionService.getItems()"
+                  [value]="size">
+        {{ size }}
+      </mat-option>
+    </mat-select>
+    {{ pagingBar.range }}
+    <span hide-xs>of {{ pagingBar.total }}</span>
+  </td-paging-bar>
+
+</mat-sidenav-container>

@@ -1,0 +1,232 @@
+<mat-sidenav-container flex>
+
+  <app-covalent-authors-sidenav #sidenav></app-covalent-authors-sidenav>
+
+  <!--<mat-card>
+    <div layout="row"
+         layout-align="start center"
+         class="pad-left-sm pad-right-sm">
+
+      <span *ngIf="!searchBox.searchVisible"
+            class="push-left-sm">
+        <span class="mat-title"
+              matLine>Covalent Authors</span>
+      </span>
+      <td-search-box #searchBox
+                     backIcon="arrow_back"
+                     class="push-right-sm"
+                     placeholder="Search here"
+                     (searchDebounce)="covalentAuthorService.search($event)"
+                     flex>
+      </td-search-box>
+      <span>
+        <button mat-icon-button
+                [matMenuTriggerFor]="toolbarMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #toolbarMenu="matMenu">
+          <button mat-menu-item
+                  (click)="sidenav.sidenav.open()">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+        </mat-menu>
+      </span>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <mat-list-item class="mat-list-header">
+      <span flex>
+        <span layout="row"
+              layout-align="start center"
+              flex>
+          <span style="font-weight: bold;"
+                matLine>App Name</span>
+        </span>
+      </span>
+
+        <span flex
+              hide-gt-xs></span>
+
+        <span hide-xs
+              flex="25">
+
+        <span layout="row"
+              layout-align="end center"
+              flex>
+
+          <mat-select [(ngModel)]="covalentAuthorService.sortKey">
+            <mat-option *ngFor="let option of covalentAuthorService.columnOptions"
+                        [value]="option.value"
+                        (click)="covalentAuthorService.sortBy(option.value)">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+
+          <button mat-icon-button
+                  style="cursor: pointer;"
+                  (click)="covalentAuthorService.sortBy(covalentAuthorService.sortKey)">
+            <mat-icon class="md-sort-icon">{{covalentAuthorService.isASC(covalentAuthorService.sortKey) ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+          </button>
+        </span>
+
+      </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <ng-template let-item
+                   let-last="last"
+                   ngFor
+                   [ngForOf]="covalentAuthorService.data">
+        <mat-list-item>
+
+        <span flex>
+          <span matLine>{{item.name}}</span>
+        </span>
+
+          <span flex
+                hide-gt-xs></span>
+          <span hide-xs
+                class="text-right"
+                flex="25">
+          {{item[covalentAuthorService.sortKey] | date:'short'}}
+        </span>
+        </mat-list-item>
+        <mat-divider *ngIf="!last"></mat-divider>
+      </ng-template>
+    </mat-list>
+
+    <mat-divider></mat-divider>
+    <td-paging-bar #pagingBar
+                   [pageSize]="covalentAuthorService.pageSize"
+                   [total]="20">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50"
+                  [(ngModel)]="covalentAuthorService.pageSize">
+        <mat-option *ngFor="let size of [5,10,15,20]"
+                    [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </mat-card>-->
+  
+  <div layout="row"
+       style="min-height: 53px;"
+       layout-align="start center"
+       class="pad-left-sm pad-right-sm"
+       [class.mat-selected-title]="authorService.selectedItems.length && authorService.selectable">
+     <span *ngIf="!searchBox.searchVisible"
+           class="push-left-sm">
+       <span *ngIf="(authorService.selectable && !authorService.selectedItems.length) || !authorService.selectable"
+             class="mat-title">Covalent Authors</span>
+       <!--<span *ngIf="authorService.selectedItems.length && authorService.selectable"
+             class="mat-body-1">{{ authorService.selectedItems.length }} item(s) selected</span>-->
+       <button mat-flat-button
+               [color]="'warn'"
+               (click)="authorService.deleteMultiple()"
+               *ngIf="authorService.selectedItems.length && authorService.selectable">
+         Delete {{ authorService.selectedItems.length }} item(s) selected
+       </button>
+     </span>
+    <td-search-box #searchBox
+                   [ngStyle]="{display: authorService.selectedItems.length ? 'none' : 'block'}"
+                   backIcon="arrow_back"
+                   class="push-right-sm"
+                   placeholder="Buscar author"
+                   (close)="authorService.setSearchTerm(null); authorService.getItems()"
+                   (searchDebounce)="authorService.setSearchTerm($event); authorService.getItems()"
+                   flex></td-search-box>
+  </div>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="authorService.items.length">
+    <td-data-table #dataTable
+                   [ngClass]="{'layout-mat-sidenav-container': !layoutService.isMobile, 'layout-mat-sidenav-container-mobile': layoutService.isMobile}"
+                   [data]="authorService.items"
+                   [columns]="authorService.columns"
+                   [selectable]="authorService.selectable"
+                   [clickable]="authorService.clickable"
+                   [multiple]="authorService.multiple"
+                   [sortable]="true"
+                   [sortBy]="'id'"
+                   [resizableColumns]="false"
+                   [(ngModel)]="authorService.selectedItems"
+                   [sortOrder]="authorService.sortOrder"
+                   (sortChange)="authorService.setSortBy($event); authorService.getItems()"
+                   (rowClick)="null">
+
+      <ng-template tdDataTableTemplate="authors"
+                   let-index="index"
+                   let-value="value">
+        <span>
+          <ng-container *ngFor="let author of value; let last = last">
+              <ng-container>{{author.name}}</ng-container><ng-container *ngIf="!last">,</ng-container>
+          </ng-container>
+        </span>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="genre"
+                   let-index="index"
+                   let-value="value">
+        {{value.name}}
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="published_at"
+                   let-index="index"
+                   let-value="value">
+        {{value | date:'dd/MM/YYYY'}}
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="bought_at"
+                   let-index="index"
+                   let-value="value">
+        {{value | date:'dd/MM/YYYY hh:mm a'}}
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="id"
+                   let-index="index"
+                   let-value="value">
+        <button mat-icon-button
+                style="margin-left: -26px;"
+                [routerLink]="'/covalent/authors/' + value"
+                (click)="authorService.getItem(value); this.sidenav.sidenav.open()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-template>
+
+    </td-data-table>
+
+  </ng-container>
+
+  <ng-container *ngIf="!authorService.items.length">
+    <div layout="column"
+         layout-align="center center"
+         class="tc-grey-500 mat-typography pad-lg">
+      <mat-icon matListAvatar
+                class="text-super push-bottom">menu_book
+      </mat-icon>
+      <h2>No books available</h2>
+    </div>
+  </ng-container>
+
+
+  <td-paging-bar #pagingBar
+                 *ngIf="authorService.items.length"
+                 [pageSize]="authorService.perPage"
+                 [total]="authorService.apiMeta.total"
+                 (change)="authorService.getItems($event.page)">
+    <span hide-xs>Rows per page:</span>
+    <mat-select [style.width.px]="50"
+                [(ngModel)]="authorService.perPage">
+      <mat-option *ngFor="let size of [20, 50, 100]"
+                  (onSelectionChange)="authorService.setPerPage($event); authorService.getItems()"
+                  [value]="size">
+        {{ size }}
+      </mat-option>
+    </mat-select>
+    {{ pagingBar.range }}
+    <span hide-xs>of {{ pagingBar.total }}</span>
+  </td-paging-bar>
+
+</mat-sidenav-container>

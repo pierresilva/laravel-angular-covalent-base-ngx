@@ -1,0 +1,48 @@
+{
+  "generator-ngx-rocket": {
+    "version": "10.0.0",
+    "props": {
+      "location": "path",
+      "strict": true,
+      "skipInstall": false,
+      "skipQuickstart": false,
+      "initGit": true,
+      "usePrefix": true,
+      "appName": "ngxcovalent",
+      "target": [
+        "web"
+      ],
+      "ui": "material",
+      "layout": "side-menu",
+      "features": [
+        "pwa",
+        "auth",
+        "lazy",
+        "e2e"
+      ],
+      "languages": [
+        "en-US",
+        "es-ES"
+      ],
+      "tools": [
+        "hads",
+        "compodoc",
+        "puppeteer"
+      ],
+      "utility": [
+        "lodash",
+        "moment"
+      ],
+      "deploy": "none",
+      "projectName": "ngxcovalent",
+      "packageManager": "npm",
+      "mobile": [],
+      "desktop": [],
+      "pwa": true,
+      "auth": true,
+      "lazy": true,
+      "e2e": true,
+      "angulartics": false
+    }
+  }
+}
